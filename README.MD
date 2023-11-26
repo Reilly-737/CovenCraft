@@ -16,8 +16,8 @@ This application combines a React frontend with a flask-SQLAlchemy backend to al
 
 ## Intro To Project
 
-- This project was made to complete the assignment `Phase 2 Project` for the `SE-West-091123` class for the [Flatiron](https://flatironschool.com/) Software Engineering Boot Camp.
-- The project was completed using the following: `React`, `React Router`, `MUI`.
+- This project was made to complete the assignment `Phase 4 Project` for the `SE-West-091123` class for the [Flatiron](https://flatironschool.com/) Software Engineering Boot Camp.
+- The project was completed using the following: `React`, `React Router`, `Flask-SQLAlchemy`.
 
 ## Dependencies
 
