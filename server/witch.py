@@ -2,6 +2,7 @@
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy.orm import validates
+from app import bcrypt
 
 from config import db
 
@@ -10,10 +11,10 @@ class Witch(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, nullable=False)
-    email = db.Column(db.Text, unique=True, nullable=False)
-    hash = db.Column(db.Text, nullable=False)
+    email = db.Column(db.String, unique=True)
+    _password_hash = db.Column(db.String, nullable=False)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
-    updated_at = db.Column(db.DateTime, on_update=db.func.now())
+    updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
     # relationships
 
@@ -39,5 +40,17 @@ class Witch(db.Model, SerializerMixin):
         elif len(username) < 1:
             raise ValueError("Username must be at least 1 characters")
         return username
-    
+        
+    @hybrid_property
+    def password_hash(self):
+        # return self._password_hash
+        raise AttributeError("Password hashes are super secret!")
+
+    @password_hash.setter
+    def password_hash(self, new_password):
+        hashed_password = bcrypt.generate_password_hash(new_password).decode("utf-8")
+        self._password_hash = hashed_password
+
+    def authenticate(self, password_to_check):
+        return bcrypt.check_password_hash(self._password_hash, password_to_check)
  
