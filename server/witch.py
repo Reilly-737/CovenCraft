@@ -10,29 +10,25 @@ class Witch(db.Model, SerializerMixin):
     __tablename__ = 'witches'
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String, nullable=False)
-    email = db.Column(db.String, unique=True)
+    username = db.Column(db.String, unique=True, nullable=False)
+    email = db.Column(db.String, unique=True, nullable=False)
     _password_hash = db.Column(db.String, nullable=False)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
     # relationships
-
     witch_crafts = db.relationship(
         "WitchCrafts", back_populates="witch", cascade="all, delete-orphan"
     )
     crafts = association_proxy("witch_crafts", "witch")
 
     # serialization
-
     serialize_rules = ("-witch_crafts")
 
     def __repr__(self):
         return f"<Witch {self.id}: {self.username}>"
     
      # validation
-
-    
     @validates("username")
     def validate_username(self, _, username):
         if not isinstance(username, str):
