@@ -18,9 +18,16 @@
     color: var(--main-txt-color);
 }
 
-.header {
+#outlet {
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: center;
+}
+
+#header {
     width: 100%;
-    padding: 2em;
+    padding: 2rem;
+    background-color: var(--med1-purp);
 }
 
 h2 { 

@@ -3,14 +3,14 @@ import Home from "./pages/Home"
 import ViewOne from "./pages/ViewOne"
 import Signup from "./pages/Signup"
 import Login from "./pages/Login"
-import Edit from "./pages/Edit"
-import ErrorPage from "./pages/ErrorPage"
+// import Edit from "./pages/Edit"
+// import ErrorPage from "./pages/ErrorPage"
 
 const routes = [
     {
         path: "/",
         element: <App />,
-        errorElement: <ErrorPage />,
+        // errorElement: <ErrorPage />,
         children: [
             {
                 path: "/",
@@ -33,10 +33,10 @@ const routes = [
                 path: "/profile/:id",
                 element: <ViewOne />,
             },
-            {
-                path: "/profile/edit",
-                element: <Edit />,
-            }
+            // {
+            //     path: "/profile/edit",
+            //     element: <Edit />,
+            // }
         ],
     },
 ];

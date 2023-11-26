@@ -1,4 +1,4 @@
-import React from 'react'
+import { useEffect, useState } from "react";
 
 const Home = () => {
     const [crafts, setCrafts] = useState([]);
@@ -9,10 +9,13 @@ const Home = () => {
             if (resp.ok) {
                 resp.json().then(setCrafts)
             } else {
-                response.json().then(errorObj => handleError(errorObj.message))
+                resp.json().then(errorObj => {
+                    console.log(errorObj.message)
+                    // handleError(errorObj.message)
+                })
             }
         })
-        .catch(handleError)
+        // .catch(handleError)
     }, [])
 
     return (
