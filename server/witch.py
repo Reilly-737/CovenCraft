@@ -1,8 +1,8 @@
-
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
+from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import validates
-from app import bcrypt
+from config import bcrypt
 
 from config import db
 
@@ -23,7 +23,7 @@ class Witch(db.Model, SerializerMixin):
     crafts = association_proxy("witch_crafts", "witch")
 
     # serialization
-    serialize_rules = ("-witch_crafts")
+    serialize_rules = ("-witch_crafts", "-created_at", "-updated_at")
 
     def __repr__(self):
         return f"<Witch {self.id}: {self.username}>"

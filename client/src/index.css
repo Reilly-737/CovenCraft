@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Palatino, 'Times New Roman', Times, serif;
+}
+
+:root {
+    --light-purp: #dbd8e3;
+    --med1-purp: #5c5470;
+    --med2-purp: #352f44;
+    --dark-purp: #2a2438; 
+
+    --bg-color: #212121;
+    --main-txt-color: #f5f5f5;
+
+    background: var(--bg-color);
+    color: var(--main-txt-color);
+}
+
+.header {
+    width: 100%;
+    padding: 2em;
+}
+
+h2 { 
+    font-family: 'Bradley Hand';
+}
+

@@ -1,4 +1,10 @@
-// import
+import App from "./App"
+import Home from "./pages/Home"
+import ViewOne from "./pages/ViewOne"
+import Signup from "./pages/Signup"
+import Login from "./pages/Login"
+import Edit from "./pages/Edit"
+import ErrorPage from "./pages/ErrorPage"
 
 const routes = [
     {
