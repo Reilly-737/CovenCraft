@@ -8,7 +8,7 @@ const App = () => {
         <div>
             <Header />
             <div className="outlet">
-            <Outlet context={ctx} />
+            <Outlet />
             </div>
         </div>
     )

@@ -23,7 +23,7 @@ class Craft(db.Model, SerializerMixin):
         "Material", secondary="craft_materials", back_populates="craft"
     )
 
-    serialize_rules = ("-witch_crafts", "-materials.craft")
+    serialize_rules = ("-witch_crafts", "-materials.craft", "-created_at", "-updated_at")
 
     def __repr__(self):
         return f"<Craft {self.id}: {self.name}>"
