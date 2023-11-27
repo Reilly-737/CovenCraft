@@ -13,6 +13,7 @@ class Witch(db.Model, SerializerMixin):
     username = db.Column(db.String, unique=True, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
     _password_hash = db.Column(db.String, nullable=False)
+    bio = db.Column(db.String, nullable=False)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
@@ -36,6 +37,14 @@ class Witch(db.Model, SerializerMixin):
         elif len(username) < 1:
             raise ValueError("Username must be at least 1 characters")
         return username
+    
+    @validates("boi")
+    def validate_desc(self, _, desc):
+        if not isinstance(desc, str):
+            raise TypeError("Witches bio must be a string")
+        elif len(desc) < 50 or len(desc) > 5000:
+            raise ValueError("Witches bio must be between 50-5000 characters")
+        return desc
         
     @hybrid_property
     def password_hash(self):

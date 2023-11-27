@@ -10,7 +10,7 @@ class WitchCraft(db.Model, SerializerMixin):
     witch_id = db.Column(db.Integer, db.ForeignKey("witches.id"), nullable=False)
     craft_id = db.Column(db.Integer, db.ForeignKey("crafts.id"), nullable=False)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
-    updated_at = db.Column(db.DateTime, on_update=db.func.now())
+    updated_at = db.Column(db.DateTime, onupdate=db.func.now())
     # relationships
 
     witch = db.relationship("Witch", back_populates="witch_crafts")
