@@ -110,13 +110,127 @@ def seed_crafts():
             'difficulty': 'advanced',
         },
         {
-            'image': 'https://images.unsplash.com/photo-1514733670139-4d87a1941d55?q=80&w=1778&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+            'image': 'https://images.unsplash.com/photo-1514733670139-4d87a1941d55?q=80&w=1778&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
             'title': 'Dream Enhancing Tea',
             'description': 'Need to make a difficult decision? Curious about the other side? Drink and feel deeply with this tea.',
             'materials': ['Mugwort', 'Chamomile', 'Peppermint'],
             'instructions': 'Brew a tea using equal parts of mugwort, chamomile and peppermint. Drink it before betime to enhance dreams and intuition.',
             'difficulty': 'beginner',
         },
+        {
+            
+            'title': 'Healing Herbal Sachet',
+            'description': 'For Witches and friends of that need an extra boost.',
+            'materials': ['Lavender, Rosemary, Chamomile, Cotton bag'],
+            'instructions': 'Combine equal parts in a small cotton bag. Carry it with you or place it under your pillow for healing energy.',
+            'difficulty': 'advanced',
+        },
+        {
+            
+            'title': 'Prosperity Spell Jar',
+            'description': 'Create and attract prosperity with this jar!',
+            'materials': ['Green Candle, Bay leaves, Cinnamon Sticks, Citrine Crystal, Small Jar'],
+            'instructions': 'Place bay leaves cinnamon stick, and citrine crystal in a jar. Light a green candle and focus on attracting prosperity. Seal the jar and keep in your home.',
+            'difficulty': 'advanced',
+        },
+        {
+            
+            'title': 'Cleansing Bath Salt',
+            'description': 'Best done on Full Moon. Cleanse body, mind and soul with this bath.',
+            'materials': ['Epsom Salt, Sea Salt, Lavender Essential Oil'],
+            'instructions': 'Mix Epsom salt and sea salt with a few drops of lavender essential oil. Add the mixture to your bath for a cleansing and purifying experience',
+            'difficulty': 'advanced',
+        },
+        {
+            
+            'title': 'Divination Oil',
+            'description': 'A beginners divination oil! Easy and perfect for baby witches.',
+            'materials': ['Frankincense, Myrrh, Jojoba Oil'],
+            'instructions': 'Create oil by mixing frankincense and myrrh with jojoba oil. Use it to anoint divination tools or your forehead before practicing divination.',
+            'difficulty': 'beginner',
+        },
+        {
+           
+            'title': 'Grounding Incense Blend',
+            'description': 'This is a wonderful craft to add to your own practice. ',
+            'materials': ['Sandalwood, Patchouli, Myrrh'],
+            'instructions': 'Blend sandalwood, patchouli and myrrh to create an incense. Burn it during meditation or rituals to promote grounding and centering.',
+            'difficulty': 'advanced',
+        },
+        {
+            
+            'title': 'Steel Wool Talisman',
+            'description': 'An alternative to the evil eye. Has a shelf life of about 6 months. This talisman will keep your energy safe. ',
+            'materials': ['Steel Wool, Small cotton bag'],
+            'instructions': 'Place a piece of steel wool in a small cotton bag. Carry it with you to absorb and neutralize negative energies around you.',
+            'difficulty': 'beginner',
+        },
+        {
+            
+            'title': 'Thistle and Nettles Tea',
+            'description': 'Drink this tea for vitality, strength and a boost in your immune system.',
+            'materials': ['Thistle, Nettles'],
+            'instructions': 'Brew equal amounts into tea. Let steep for 5 minutes before drinking. Stir tea counter clockwise with your health intention.',
+            'difficulty': 'advanced',
+        },
+        {
+            
+            'title': 'Hydrangea Hex-Breaking Spell',
+            'description': 'Remove hexes with this spell. Not for beginners.',
+            'materials': ['Dried Hydrangeas, Thorns, Steel Wool'],
+            'instructions': 'Burn all listed materials in small bowl to break hexes and remove negative energy. Scatter the ashes around your home.',
+            'difficulty': 'advanced',
+        },
+        {
+            
+            'title': 'Coconut Oil Spell Candle',
+            'description': 'This candle is a perfect swiss-army knife of spells. Can be used for love, protection, prosperity etc.',
+            'materials': ['Coconut Oil, Small Candle'],
+            'instructions': 'Dress a small candle with coconut oil. Light the candle, focusing on your intentions.',
+            'difficulty': 'beginner',
+        },
+          {
+            
+            'title': 'Five Finger Grass Talisman',
+            'description': 'A little talisman to carry for good luck and positive energy',
+            'materials': ['Five Finger Grass, Small Cloth'],
+            'instructions': 'Place fiver finger grass in a small cloth and tie it with a string. Carry it with you for good luck and positive energy.',
+            'difficulty': 'advanced',
+        },  
+        {
+            
+            'title': 'Protection Sachet',
+            'description': 'A small sachet to protect you from negativity ',
+            'materials': ['Hydrangea Petals, thorns, Small pouch'],
+            'instructions': 'Combine hydrangea petals and thorns in a small pouch. Carry it with you or place it in your home for protection against negativity.',
+            'difficulty': 'beginner',
+        },
+        {
+            
+            'title': 'Familiar Protection Jar',
+            'description': 'Protect your familiar with this jar.',
+            'materials': ['Basil, Five Finger Grass, Thistle, Coconut Oil, Small Jar, Hair from familiar'],
+            'instructions': 'Place all materials in jar. Hold in hands tightly and focus on intention. Seal jar. Holds for 3 months.',
+            'difficulty': 'advanced',
+        },
+
+        {
+        
+        'title': 'Moonwater Spell',
+        'description': 'Using in so many spells. Moonwater is an essential.',
+        'materials': ['Small jar, One cup of water'],
+        'instructions': 'Place a glass of water under the full moon overnight, visualizing its energy infusing the water. In the morning, collect the charged Moonwater for use in magical workings.',
+        'difficulty': 'beginner',
+     },
+     {
+        
+        'title': 'Fullmoon Blessing Oil Spell',
+        'description': 'Another witch essential to have on hand!',
+        'materials': ['Jasmine, Yiang-Yiang, Sandalwood, Clear Quartz Crystal, Sweet Almond Oil, Small jar'],
+        'instructions': 'On the night of the full moon, add moon-associated essential oils to a carrier oil, placing the mixture under moonlight overnight. Strain (if needed) and use the Full Moon Blessing Oil to anoint and bless, infusing it with positive energies.',
+        'difficulty': 'beginner',
+    },
+ 
     ]
 
     for craft_info in CRAFT_DATA:
@@ -130,8 +244,8 @@ def seed_crafts():
         if not material_instance:
             material_instance = Materials(name=material_name, quantity=10)
             db.session.add(material_instance)
-        
-    db.session.commit()
+
+    db.session.commit()  
 
 if __name__ == "__main__":
     with app.app_context():
