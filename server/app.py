@@ -45,7 +45,7 @@ class Witches(Resource):
             db.session.add(new_witch)
             db.session.commit()
             return new_witch.to_dict(), 201
-        except Eception as e:
+        except Exception as e:
             db.session.rollback()
             return {'error': str(e)}, 400
     

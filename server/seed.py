@@ -1,6 +1,7 @@
 from app import app, db
 from model import  CraftMaterial, Materials
-#untested change is the difficulty but that can be removed 
+from craft import  Craft
+
 def clear_tables():
     print("Clearing database...")
     with app.app_context():
