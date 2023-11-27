@@ -28,9 +28,20 @@
     width: 100%;
     padding: 2rem;
     background-color: var(--med1-purp);
+    display: flex;
+    justify-content: space-between;
 }
 
 h2 { 
     font-family: 'Bradley Hand';
+}
+
+button {
+    padding: 0.5rem 2.5rem;
+    border: 2px solid var(--light-purp);
+    text-decoration: none;
+    background-color: rgba(0, 0, 0, 0);
+    color: var(--main-txt-color);
+    font-size: 1.25rem;
 }
 

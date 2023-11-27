@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Card from "../components/Card"
 
 const Home = () => {
     const [crafts, setCrafts] = useState([]);
@@ -18,8 +19,16 @@ const Home = () => {
         // .catch(handleError)
     }, [])
 
+    const allCrafts = crafts.map(craft => <Card key={craft.id} {...craft}/>)
+
     return (
-        <div>Home</div>
+        <div>
+            <h2>Where magic meets creativity!</h2>
+            <p>Join our enchanting workshops, crafted for local witches to brew a cauldron of artistic spells and conjure one-of-a-kind mystical crafts together.</p>
+            <div>
+                {allCrafts}
+            </div>
+        </div>
     )
 }
 
