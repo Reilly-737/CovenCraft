@@ -14,15 +14,6 @@ craft_materials = db.Table(
     db.Column('material_id', db.Integer, db.ForeignKey('materials.id'), primary_key=True)
     )
     
-
-class CraftMaterial(db.Model, SerializerMixin):
-    __tablename__ = "craft_materials"
-
-
-    id = db.Column(db.Integer, primary_key=True)
-    craft_id = db.Column(db.Integer)
-    material_id = db.Column(db.Integer, db.ForeignKey('materials.id'))
-    
   
 class Materials(db.Model, SerializerMixin):
     __tablename__ = "materials"
@@ -31,7 +22,8 @@ class Materials(db.Model, SerializerMixin):
     name = db.Column(db.String(255))
     quantity = db.Column(db.Integer)
     
-    craft_materials = db.relationship('CraftMaterial', back_populates='materials')
+    crafts = db.relationship('Craft',  
+        secondary=craft_materials, back_populates='materials') 
 
-
+    serialize_rules = ("-crafts",)
 
