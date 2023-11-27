@@ -10,7 +10,7 @@ class Craft(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     image = db.Column(db.String, nullable=False)
     title = db.Column(db.String, nullable=False)
-    decription = db.Column(db.String, nullable=False)
+    description = db.Column(db.String, nullable=False)
     instructions = db.Column(db.String, nullable=False)
     difficulty = db.Column(db.String)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
@@ -25,7 +25,7 @@ class Craft(db.Model, SerializerMixin):
         "Material", secondary="craft_materials", back_populates="craft"
     )
 
-    serialize_rules = ("-witch_crafts", "-materials.craft", "-created_at", "-updated_at")
+    serialize_rules = ("-witch_crafts", "-materials.crafts", "-created_at", "-updated_at")
 
     def __repr__(self):
         return f"<Craft {self.id}: {self.name}>"

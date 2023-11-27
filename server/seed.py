@@ -1,5 +1,5 @@
 from app import app, db
-from material import CraftMaterial, Material
+from materials import Materials
 from craft import Craft
 
 def clear_tables():
@@ -108,9 +108,9 @@ def seed_crafts():
     db.session.commit()
 
     for material_name in craft_info['materials']:
-        material_instance = db.session.query(Material).filter_by(name=material_name).first()
+        material_instance = db.session.query(Materials).filter_by(name=material_name).first()
         if not material_instance:
-            material_instance = Material(name=material_name)
+            material_instance = Materials(name=material_name, quantity=10)
             db.session.add(material_instance)
         
     db.session.commit()
