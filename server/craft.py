@@ -9,7 +9,7 @@ class Craft(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     image = db.Column(db.String, nullable=False)
-    name = db.Column(db.String, nullable=False)
+    title = db.Column(db.String, nullable=False)
     decription = db.Column(db.String, nullable=False)
     instructions = db.Column(db.String, nullable=False)
     difficulty = db.Column(db.String)
