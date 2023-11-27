@@ -17,7 +17,7 @@ class Craft(db.Model, SerializerMixin):
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
     witch_crafts = db.relationship(
-        "WitchCrafts", back_populates="craft", cascade="all, delete-orphan"
+        "WitchCraft", back_populates="craft", cascade="all, delete-orphan"
     )
     witches = association_proxy("witch_crafts", "craft")
 
