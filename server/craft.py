@@ -11,6 +11,7 @@ class Craft(db.Model, SerializerMixin):
     image = db.Column(db.String, nullable=False)
     name = db.Column(db.String, nullable=False)
     decription = db.Column(db.String, nullable=False)
+    instructions = db.Column(db.String, nullable=False)
     difficulty = db.Column(db.String)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
