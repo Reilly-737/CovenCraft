@@ -1,5 +1,5 @@
 from app import app, db
-from model import CraftMaterial, Material
+from material import CraftMaterial, Material
 from craft import Craft
 
 def clear_tables():
