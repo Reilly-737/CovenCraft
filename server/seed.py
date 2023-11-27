@@ -1,6 +1,6 @@
 from app import app, db
-from model import  CraftMaterial, Materials
-from craft import  Craft
+from materials import Materials
+from craft import Craft
 
 def clear_tables():
     print("Clearing database...")

@@ -11,6 +11,7 @@ from config import app, db, api
 # Add your model imports
 from craft import Craft
 from witch import Witch
+from materials import Materials
 
 # Views go here!
 

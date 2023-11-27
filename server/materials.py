@@ -2,7 +2,6 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy_serializer import SerializerMixin
 from config import db
 
-db = SQLAlchemy()
 
 metadata = db.MetaData()
 
@@ -12,7 +11,7 @@ craft_materials = db.Table(
     metadata, 
     db.Column('craft_id', db.Integer, db.ForeignKey('crafts.id'), primary_key=True),
     db.Column('material_id', db.Integer, db.ForeignKey('materials.id'), primary_key=True)
-    )
+)
     
   
 class Materials(db.Model, SerializerMixin):
