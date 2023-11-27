@@ -109,6 +109,14 @@ def seed_crafts():
                 'Witch tip! If you have familiars or pets in the home. Do not blow cinnamon inside. Cinnamon can be toxic. Best alternative is to hang cinnamon sticks over door.',
             'difficulty': 'advanced',
         },
+        {
+            'image': 'https://images.unsplash.com/photo-1514733670139-4d87a1941d55?q=80&w=1778&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+            'title': 'Dream Enhancing Tea',
+            'description': 'Need to make a difficult decision? Curious about the other side? Drink and feel deeply with this tea.',
+            'materials': ['Mugwort', 'Chamomile', 'Peppermint'],
+            'instructions': 'Brew a tea using equal parts of mugwort, chamomile and peppermint. Drink it before betime to enhance dreams and intuition.',
+            'difficulty': 'beginner',
+        },
     ]
 
     for craft_info in CRAFT_DATA:
