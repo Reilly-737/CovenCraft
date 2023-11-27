@@ -53,4 +53,4 @@ This application combines a React frontend with a flask-SQLAlchemy backend to al
 - `Reilly`: 
 - `Jazlin`: 
 
-* [Back To Top](#home)
+[Back To Top](#home)
