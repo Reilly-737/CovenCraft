@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import {useHistory, Link } from "react-router-dom";
-import Card from "./Card";
+import { Link, useNavigate } from "react-router-dom";
+import Card from "../components/Card"
 
 
 const Profile = () => {
-  const history = useHistory();
+  const navigate = useNavigate()
   const [user, setUser] = useState(null);
   const [savedCrafts, setSavedCrafts] = useState([]);
 
@@ -43,7 +43,7 @@ const Profile = () => {
 
   const deleteProfile = () => {
     // logic
-    history.push("/"); // to go back home
+    navigate("/"); // to go back home
   };
 
   const removeSavedCraft = (craftId) => {
@@ -66,7 +66,7 @@ const Profile = () => {
 
           <h3>Saved Crafts</h3>
           {savedCrafts.map((craft) => (
-            <CraftCard
+            <Card
               key={craft.id}
               craft={craft}
               onSave={() => saveCraft(craft)}
@@ -80,4 +80,4 @@ const Profile = () => {
   );
 };
 
-export default UserProfile;
+export default Profile;

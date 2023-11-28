@@ -3,6 +3,7 @@ import Home from "./pages/Home"
 import ViewOne from "./pages/ViewOne"
 import Signup from "./pages/Signup"
 import Login from "./pages/Login"
+import Profile from "./pages/Profile"
 import Edit from "./pages/Edit"
 import ErrorPage from "./pages/ErrorPage"
 
@@ -31,7 +32,7 @@ const routes = [
             },
             {
                 path: "/profile/:id",
-                element: <ViewOne />,
+                element: <Profile />,
             },
             {
                 path: "/profile/edit",
