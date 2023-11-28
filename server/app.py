@@ -10,8 +10,10 @@ from flask_restful import Resource
 from config import app, db, api
 # Add your model imports
 from craft import Craft
-from witch import Witch
 from materials import Materials
+from craft_materials import CraftMaterials
+from witch import Witch
+from witchcraft import WitchCraft
 
 # Views go here!
 

@@ -1,18 +1,7 @@
-from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy_serializer import SerializerMixin
+from sqlalchemy.ext.associationproxy import association_proxy
+
 from config import db
-
-
-metadata = db.MetaData()
-
-
-craft_materials = db.Table(
-    'craft_materials',
-    metadata, 
-    db.Column('craft_id', db.Integer, db.ForeignKey('crafts.id'), primary_key=True),
-    db.Column('material_id', db.Integer, db.ForeignKey('materials.id'), primary_key=True)
-)
-    
   
 class Materials(db.Model, SerializerMixin):
     __tablename__ = "materials"
@@ -20,9 +9,12 @@ class Materials(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255))
     quantity = db.Column(db.Integer)
-    
-    crafts = db.relationship('Craft',  
-        secondary=craft_materials, back_populates='materials') 
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_at = db.Column(db.DateTime, onupdate=db.func.now()) 
 
-    serialize_rules = ("-crafts",)
+    craft_materials = db.relationship("CraftMaterials",
+        back_populates="material", cascade="all, delete-orphan"
+    )
+    crafts = association_proxy("craft_materials", "craft")
 
+    serialize_rules = ("-craft_materials", "-crafts", "-created_at", "-updated_at")

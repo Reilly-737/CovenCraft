@@ -16,19 +16,20 @@ class Craft(db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
-    witch_crafts = db.relationship(
-        "WitchCraft", back_populates="craft", cascade="all, delete-orphan"
+    witch_crafts = db.relationship("WitchCraft", 
+        back_populates="craft", cascade="all, delete-orphan"
     )
     witches = association_proxy("witch_crafts", "craft")
 
-    materials = db.relationship(
-        "Material", secondary="craft_materials", back_populates="craft"
+    craft_materials = db.relationship("CraftMaterials",
+        back_populates="craft", cascade="all, delete-orphan"
     )
+    materials = association_proxy("craft_materials", "material")
 
-    serialize_rules = ("-witch_crafts", "-materials.crafts", "-created_at", "-updated_at")
+    serialize_rules = ("-witch_crafts", "-witches", "-craft_materials", "-materials", "-created_at", "-updated_at")
 
     def __repr__(self):
-        return f"<Craft {self.id}: {self.name}>"
+        return f"<Craft {self.id}: {self.title}>"
     
     @validates("name")
     def validate_name(self, _, name):
@@ -48,7 +49,8 @@ class Craft(db.Model, SerializerMixin):
     
     @validates("difficulty")
     def validate_diff(self, _, diff):
-        difficulties = ["beginner", "intermeditate", "advanced"]
+        difficulties = ["beginner", "intermediate", "advanced"]
         if diff not in difficulties:
             raise ValueError(f"Difficulty must be: {difficulties}")
         return diff
+    
