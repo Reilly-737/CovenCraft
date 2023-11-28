@@ -6,9 +6,11 @@ const Card = ({ image, title, description, difficulty }) => {
       <img src={image} alt={title} />
       <div className="details">
         <h2>{title}</h2>
-        <p>{description}</p>
-        <p>{difficulty}</p>
-        <button>Learn more</button>
+        <div className="hidden">
+          <p>{description}</p>
+          <p>{difficulty}</p>
+          <button>Learn more</button>
+        </div>
       </div>
     </div>
   )
