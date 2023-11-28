@@ -1,56 +1,77 @@
-import React, {useState, useEffect} from 'react';
-import {useHistory, Link } from "react-router-dom";
-import Card from "./Card";
-
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../AuthContext";
 
 const Profile = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
+  const { userId } = useAuth();
   const [user, setUser] = useState(null);
   const [savedCrafts, setSavedCrafts] = useState([]);
-
-  // Placeholder data
-  const initialSavedCrafts = [
-    { id: 1, title: "Craft 1" },
-    { id: 2, title: "Craft 2" },
-  ];
+  const [bio, setBio] = useState("");
 
   useEffect(() => {
-    // Fetch user profile data 
-    fetchProfile(); 
-  }, []);
+    fetchProfile();
+    fetchSavedCrafts();
+  }, [userId]);
 
-  // function for fetching user profile
   const fetchProfile = () => {
-    // logic need to go here
-    // setUser(result); // Set the user state with the fetched data
-    setUser({
-      name: "Ribbit Robbit",
-      username: "frog_queen",
-      bio: "Bow Down To The Frog Queen!",
-    });
-    setSavedCrafts(initialSavedCrafts);
+    if (!userId) {
+      return;
+    }
+
+    fetch(`/witches/${userId}`)
+      .then((response) => response.json())
+      .then((result) => setUser(result))
+      .catch((error) => console.error("Error fetching user profile:", error));
   };
 
-  // functions for saving, editing, and deleting crafts
-  const saveCraft = (craft) => {
-    // logic!
-    setSavedCrafts((prevCrafts) => [...prevCrafts, craft]);
-  };
+  const fetchSavedCrafts = () => {
+    if (!userId) {
+      return;
+    }
 
-  const editProfile = () => {
-    // logic!
+    fetch(`/witches/${userId}/listSavedCrafts`)
+      .then((response) => response.json())
+      .then((result) => setSavedCrafts(result))
+      .catch((error) => console.error("Error fetching saved crafts:", error));
   };
 
   const deleteProfile = () => {
-    // logic
-    history.push("/"); // to go back home
+    if (!userId) {
+      return;
+    }
+
+    fetch(`/witches/${userId}`, { method: "DELETE" })
+      .then((response) => {
+        if (response.ok) {
+          navigate("/");
+        } else {
+          console.error("Failed to delete profile");
+        }
+      })
+      .catch((error) => console.error("Error deleting profile:", error));
   };
 
-  const removeSavedCraft = (craftId) => {
-    // logic
-    setSavedCrafts((prevCrafts) =>
-      prevCrafts.filter((craft) => craft.id !== craftId)
-    );
+  const updateBio = () => {
+    if (!userId) {
+      return;
+    }
+
+    fetch(`/witches/${userId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ bio }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          fetchProfile();
+        } else {
+          console.error("Sorry! Failed to update bio");
+        }
+      })
+      .catch((error) => console.error("Error updating bio:", error));
   };
 
   return (
@@ -60,19 +81,19 @@ const Profile = () => {
           <h2>{user.name}'s Profile</h2>
           <p>Username: {user.username}</p>
           <p>Bio: {user.bio}</p>
-          {/* logic */}
-          <Link to="/edit-profile">Edit Profile</Link>
+          <textarea
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
+            placeholder="Enter your bio"
+          />
+          <button onClick={updateBio}>Update Bio</button>
           <button onClick={deleteProfile}>Delete Profile</button>
 
           <h3>Saved Crafts</h3>
           {savedCrafts.map((craft) => (
-            <CraftCard
-              key={craft.id}
-              craft={craft}
-              onSave={() => saveCraft(craft)}
-              onRemove={() => removeSavedCraft(craft.id)}
-              editable
-            />
+            <div key={craft.id}>
+              <p>{craft.title}</p>
+            </div>
           ))}
         </>
       )}
@@ -80,4 +101,4 @@ const Profile = () => {
   );
 };
 
-export default UserProfile;
+export default Profile;
