@@ -45,3 +45,43 @@ button {
     font-size: 1.25rem;
 }
 
+.container {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    width: 400px;
+    height: 400px;
+    position: relative;
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+  
+.details {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 1rem;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+.details .hidden {
+    max-height: 0;
+    overflow: hidden;
+    /* transition: height 2s ease-in-out; */
+    transition: max-height 2s;
+    will-change: max-height;
+}
+  
+.card:hover .hidden {
+    max-height: 200px;
+    /* transition: height 2s ease-in-out; */
+}
