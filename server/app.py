@@ -30,9 +30,9 @@ api.add_resource(Crafts, "/crafts")
 
 class CraftsById(Resource):
     def get(self, id):
-        if craft := Craft.get_or_404(id, 
+        if craft := Craft.query.get_or_404(id, 
             description=f"Craft {id} not found"):
-            return craft.to_dict(), 200
+            return craft.to_dict(rules=("materials",)), 200
         
 api.add_resource(CraftsById, "/crafts/<int:id>")
 
@@ -56,12 +56,12 @@ api.add_resource(Witches, "/witches")
 
 class WitchesById(Resource):
     def get(self, id):
-        if witch := Witch.get_or_404(id, 
+        if witch := Witch.query.get_or_404(id, 
             description=f"Witch {id} not found"):
             return witch.to_dict(), 200
         
     def patch(self, id):
-        witch = Witch.get_or_404(id, 
+        witch = Witch.query.get_or_404(id, 
             description=f"Witch {id} not found")
         try:
             data = request.get_json()
@@ -74,7 +74,7 @@ class WitchesById(Resource):
             return {'error': str(e)}, 400
         
     def delete(self, id):
-        witch = Witch.get_or_404(id, 
+        witch = Witch.query.get_or_404(id, 
             description=f"Witch {id} not found")
         try:
             db.session.delete(witch)
