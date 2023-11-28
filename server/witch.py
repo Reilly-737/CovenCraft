@@ -19,7 +19,7 @@ class Witch(db.Model, SerializerMixin):
 
     # relationships
     witch_crafts = db.relationship(
-        "WitchCrafts", back_populates="witch", cascade="all, delete-orphan"
+        "WitchCraft", back_populates="witch", cascade="all, delete-orphan"
     )
     crafts = association_proxy("witch_crafts", "witch")
 
@@ -38,7 +38,7 @@ class Witch(db.Model, SerializerMixin):
             raise ValueError("Username must be at least 1 characters")
         return username
     
-    @validates("boi")
+    @validates("bio")
     def validate_desc(self, _, desc):
         if not isinstance(desc, str):
             raise TypeError("Witches bio must be a string")
