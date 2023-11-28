@@ -1,9 +1,13 @@
+from faker import Faker
+import random
 from config import app, db
 from craft import Craft
 from materials import Materials
 from craft_materials import CraftMaterials
 from witch import Witch
 from witchcraft import WitchCraft
+
+fake = Faker()
 
 def clear_tables():
     db.drop_all()
@@ -154,12 +158,35 @@ def associate_crafts_materials():
     db.session.commit()
     print("Associations added!")
 
+def seed_witches():
+    for _ in range(100):
+        new_witch = Witch(
+            username = fake.name(),
+            email = fake.email(),
+            bio = fake.sentence(nb_words=10, variable_nb_words=False),
+        )
+        new_witch.password_hash = "password"
+        db.session.add(new_witch)
+    db.session.commit()
+    print("Witches added!")
+
+def associate_witches_crafts():
+    for _ in range(100):
+        witch_instance = db.session.query(Witch).filter_by(id=random.randrange(1, 100)).first()
+        craft_instance = db.session.query(Craft).filter_by(id=random.randrange(1, len(CRAFT_DATA))).first()
+        new_witch_craft = WitchCraft(witch_id=witch_instance.id, craft_id=craft_instance.id)
+        db.session.add(new_witch_craft)
+    db.session.commit()
+    print("WitchCrafts added!")
+
 if __name__ == "__main__":
     with app.app_context():
         clear_tables()
         seed_crafts()
         seed_materials()
         associate_crafts_materials()
+        seed_witches()
+        associate_witches_crafts()
         print("As you wish!")
     
     

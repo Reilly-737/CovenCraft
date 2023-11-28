@@ -32,6 +32,17 @@
     justify-content: space-between;
 }
 
+a {
+    text-decoration: none;
+    color: var(--main-txt-color);
+}
+
+a:hover {
+    text-decoration: none;
+    color: var(--light-purp);
+
+}
+
 h2 { 
     font-family: 'Bradley Hand';
 }
@@ -76,12 +87,31 @@ button {
 .details .hidden {
     max-height: 0;
     overflow: hidden;
-    /* transition: height 2s ease-in-out; */
     transition: max-height 2s;
     will-change: max-height;
 }
   
 .card:hover .hidden {
     max-height: 200px;
-    /* transition: height 2s ease-in-out; */
+}
+
+.one_craft {
+    min-width: 400px;
+    max-width: 800px;
+}
+
+.craft_details {
+    min-width: 300px;
+    max-width: 700px;
+}
+
+.sidebar {
+    min-width: 300px;
+    max-width: 400px;
+}
+
+main img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
 }
