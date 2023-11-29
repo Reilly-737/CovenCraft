@@ -10,18 +10,18 @@ const Home = () => {
 
     useEffect(() => {
         fetch("/crafts")
-        .then(resp => resp.json())
-            // if (resp.ok) {
-            //     resp.json().then(setCrafts)
-            // } else {
-            //     resp.json().then(errorObj => {
-            //         handleSnackType("error");
-            //         setAlertMessage(errorObj.message);
-            //     })
-            // }
-        // })
-        .then(setCrafts)
+        .then(resp => {
+            if (resp.ok) {
+                resp.json().then(setCrafts)
+            } else {
+                resp.json().then(errorObj => {
+                    handleSnackType("error");
+                    setAlertMessage(errorObj.message);
+                })
+            }
+        })
         .catch(errorObj => {
+            console.error('Fetch error:', errorObj);
             handleSnackType("error")
             setAlertMessage(errorObj.message)
         })
