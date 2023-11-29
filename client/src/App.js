@@ -29,7 +29,7 @@ const App = () => {
 
     return (
         <div>
-            <Header />
+            <Header user={user} />
             {message && (
                 <AlertBar
                     message={message}

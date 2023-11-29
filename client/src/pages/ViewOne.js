@@ -12,8 +12,8 @@ const ViewOne = () => {
     .then(resp => resp.json())
     .then(setCraft)
     .catch(errorObj => {
-        handleSnackType("error");
-        setAlertMessage(errorObj.message);
+        handleSnackType("error")
+        setAlertMessage(errorObj.message)
     })
   }, [id])
 
@@ -27,12 +27,12 @@ const ViewOne = () => {
     })
       .then((resp) => resp.json())
       .then(data => {
-        handleSnackType("success");
-        setAlertMessage("Craft added!");
+        handleSnackType("success")
+        setAlertMessage("Craft added!")
       })
       .catch(errorObj => {
         handleSnackType("error");
-        setAlertMessage(errorObj.message);
+        setAlertMessage(errorObj.message)
       })
   }
 
@@ -42,12 +42,12 @@ const ViewOne = () => {
     })
       .then((resp) => resp.json())
       .then(data => {
-        handleSnackType("success");
-        setAlertMessage("Craft removed!");
+        handleSnackType("success")
+        setAlertMessage("Craft removed!")
       })
       .catch(errorObj => {
-        handleSnackType("error");
-        setAlertMessage(errorObj.message);
+        handleSnackType("error")
+        setAlertMessage(errorObj.message)
       })
   }
 
