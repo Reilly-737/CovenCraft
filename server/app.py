@@ -109,6 +109,16 @@ class WitchCrafts(Resource):
 
 api.add_resource(WitchCrafts, "/witch_crafts")
 
+class CheckSession(Resource): 
+    def get(self): 
+        user = Witch.query.filter(Witch.id == session.get('user_id')).first() 
+        if user: 
+            return user.to_dict(), 200
+        else: 
+            return {'message': '401: Not Authorized'}, 401 
+
+api.add_resource(CheckSession, '/check_session') 
+
 class Login(Resource): 
     def post(self): 
         user = Witch.query.filter( 
@@ -120,7 +130,12 @@ class Login(Resource):
     
 api.add_resource(Login, "/login")
 
+class Logout(Resource): 
+    def delete(self):  
+        session['user_id'] = None 
+        return {'message': '204: No Content'}, 204 
 
+api.add_resource(Logout, '/logout')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
