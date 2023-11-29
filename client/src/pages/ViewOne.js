@@ -5,7 +5,7 @@ const ViewOne = () => {
   const { user, setAlertMessage, handleSnackType } = useOutletContext()
   const { id } = useParams()
   const [craft, setCraft] = useState({})
-  const [hasCraft, setHasCraft] = useState(False)
+  const [hasCraft, setHasCraft] = useState(false)
   const { image, title, description, instructions, difficulty, materials, witches } = craft
 
   useEffect(() => {
@@ -23,23 +23,27 @@ const ViewOne = () => {
   }
 
   const handleSaveCraft = () =>{
-    // if user 
-    fetch('/witch_crafts', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ craft_id: id }),
-    })
-      .then((resp) => resp.json())
-      .then(data => {
-        handleSnackType("success")
-        setAlertMessage("Craft added!")
+    if (user) {
+      fetch('/witch_crafts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ craft_id: id }),
       })
-      .catch(errorObj => {
-        handleSnackType("error");
-        setAlertMessage(errorObj.message)
-      })
+        .then((resp) => resp.json())
+        .then(data => {
+          handleSnackType("success")
+          setAlertMessage("Craft added!")
+        })
+        .catch(errorObj => {
+          handleSnackType("error");
+          setAlertMessage(errorObj.message)
+        })
+    } else {
+      handleSnackType("error");
+      setAlertMessage("Must be logged in to save Craft!")
+    }
   }
 
   const handleDeleteCraft = (id) =>{
