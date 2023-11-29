@@ -5,7 +5,7 @@
 # Remote library imports
 from flask import request, session
 from flask_restful import Resource
-from sqlalchemy.orm import joinedload
+from werkzeug.exceptions import NotFound
 
 # Local imports
 from config import app, db, api
@@ -18,14 +18,22 @@ from witchcraft import WitchCraft
 
 # Views go here!
 
+@app.errorhandler(NotFound)
+def handle_404(error):
+    response = {"message": error.description}
+    return response, error.code
+
 @app.route('/')
 def index():
     return '<h1>Project Server</h1>'
 
 class Crafts(Resource):
     def get(self):
-        crafts = [craft.to_dict() for craft in Craft.query]
-        return crafts, 200
+        try:
+            crafts = [craft.to_dict() for craft in Craft.query]
+            return crafts, 200
+        except Exception as e:
+            return {'error': str(e)}, 400
 
 api.add_resource(Crafts, "/crafts")
 
@@ -48,7 +56,12 @@ class Witches(Resource):
     def post(self):
         try:
             data = request.get_json()
-            new_witch = Witch(**data)
+            new_witch = Witch(
+                username = data.get('username'),
+                email = data.get('email'),
+                bio = data.get('bio')
+            )
+            new_witch.password_hash = data.get('password')
             db.session.add(new_witch)
             db.session.commit()
             return new_witch.to_dict(), 201
@@ -62,7 +75,7 @@ class WitchesById(Resource):
     def get(self, id):
         if witch := Witch.query.get_or_404(id, 
             description=f"Witch {id} not found"):
-            return witch.to_dict(), 200
+            return witch.to_dict(rules=("crafts",)), 200
         
     def patch(self, id):
         witch = Witch.query.get_or_404(id, 
@@ -125,7 +138,7 @@ api.add_resource(WitchCraftsById, "/witch_crafts/<int:id>")
 
 class CheckSession(Resource): 
     def get(self): 
-        user = Witch.query.filter(Witch.id == session.get('user_id')).first() 
+        user = Witch.query.filter_by(id = session.get('user_id')).first() 
         if user: 
             return user.to_dict(only="id"), 200
         else: 
@@ -135,12 +148,19 @@ api.add_resource(CheckSession, '/check_session')
 
 class Login(Resource): 
     def post(self): 
-        user = Witch.query.filter( 
-            Witch.username == request.get_json()['username'] 
-        ).first() 
+        try:
+            data = request.get_json()
+            user_by_username = Witch.query.filter_by(username = data.get('username')).first()
+            user_by_email = Witch.query.filter_by(email = data.get('email')).first()
 
-        session['user_id'] = user.id 
-        return user.to_dict()
+            if (user_by_username or user_by_email):
+                user = user_by_username or user_by_email
+                if user.authenticate(data.get('password')):
+                    session['user_id'] = user.id
+                    return user.to_dict(), 200
+            return {'message': 'Invalid Credentials'}, 403
+        except Exception as e:
+            return {'message': 'Invalid Credentials'}, 403
     
 api.add_resource(Login, "/login")
 
