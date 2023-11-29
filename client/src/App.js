@@ -3,7 +3,6 @@ import { Outlet } from "react-router-dom";
 import Header from "./components/Header";
 import AlertBar from "./components/AlertBar";
 
-
 const App = () => {
     const [message, setMessage] = useState(null);
     const [snackType, setSnackType] = useState("");
