@@ -5,12 +5,11 @@ const Profile = () => {
   const navigate = useNavigate();
   const { id: userId } = useParams(); // Using useParams to get userId from the route
   const [user, setUser] = useState(null);
-  const [savedCrafts, setSavedCrafts] = useState([]);
   const [bio, setBio] = useState("");
+  const [savedCrafts, setSavedCrafts] = useState([]);
 
   useEffect(() => {
     fetchProfile();
-    fetchSavedCrafts();
   }, [userId]);
 
   const fetchProfile = () => {
@@ -20,19 +19,11 @@ const Profile = () => {
 
     fetch(`/witches/${userId}`)
       .then((response) => response.json())
-      .then((result) => setUser(result))
+      .then((result) => {
+        setUser(result);
+        setSavedCrafts(result.savedCrafts); 
+      })
       .catch((error) => console.error("Error fetching user profile:", error));
-  };
-
-  const fetchSavedCrafts = () => {
-    if (!userId) {
-      return;
-    }
-
-    fetch(`/witches/${userId}/listSavedCrafts`)
-      .then((response) => response.json())
-      .then((result) => setSavedCrafts(result))
-      .catch((error) => console.error("Error fetching saved crafts:", error));
   };
 
   const deleteProfile = () => {
