@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useOutletContext } from "react-router-dom"
 import Card from "../components/Card"
-import SearchFilter from "../components/SearchFilter"
+// import SearchFilter from "../components/SearchFilter"
 
 const Home = () => {
     const { setAlertMessage, handleSnackType } = useOutletContext()
@@ -44,7 +44,7 @@ const Home = () => {
                 <h2>Where magic meets creativity!</h2>
                 <p>Join our enchanting workshops, crafted for local witches to brew a cauldron of artistic spells and conjure one-of-a-kind mystical crafts together.</p>
             </div>
-            <SearchFilter searchTerm={searchTerm} newSearch={newSearch} />
+            {/* <SearchFilter searchTerm={searchTerm} newSearch={newSearch} /> */}
             
             <div className="container">
                 {allCrafts}
