@@ -19,7 +19,7 @@ class Craft(db.Model, SerializerMixin):
     witch_crafts = db.relationship("WitchCraft", 
         back_populates="craft", cascade="all, delete-orphan"
     )
-    witches = association_proxy("witch_crafts", "craft")
+    witches = association_proxy("witch_crafts", "witch")
 
     craft_materials = db.relationship("CraftMaterials",
         back_populates="craft", cascade="all, delete-orphan"
