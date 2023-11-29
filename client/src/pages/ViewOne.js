@@ -5,6 +5,7 @@ const ViewOne = () => {
   const { user, setAlertMessage, handleSnackType } = useOutletContext()
   const { id } = useParams()
   const [craft, setCraft] = useState({})
+  const [hasCraft, setHasCraft] = useState(False)
   const { image, title, description, instructions, difficulty, materials, witches } = craft
 
   useEffect(() => {
@@ -17,7 +18,12 @@ const ViewOne = () => {
     })
   }, [id])
 
+  const check_user_craft = () => {
+
+  }
+
   const handleSaveCraft = () =>{
+    // if user 
     fetch('/witch_crafts', {
       method: 'POST',
       headers: {
@@ -65,7 +71,7 @@ const ViewOne = () => {
           <p>{description}</p>
           <p>{instructions}</p>
           <ul>{materials_list}</ul>
-          { user ? (
+          { hasCraft ? (
             <button onClick={() => handleDeleteCraft(id)}>Remove craft</button> ) : (
             <button onClick={handleSaveCraft}>Save craft</button>
           )}

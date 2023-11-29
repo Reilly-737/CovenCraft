@@ -24,7 +24,8 @@ class Witch(db.Model, SerializerMixin):
     crafts = association_proxy("witch_crafts", "craft")
 
     # serialization
-    serialize_rules = ("-witch_crafts", "-created_at", "-updated_at")
+    # serialize_rules = ("-witch_crafts", "-created_at", "-updated_at")
+    serialize_only = ("id", "username", "email", "bio")
 
     def __repr__(self):
         return f"<Witch {self.id}: {self.username}>"
