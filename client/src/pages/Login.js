@@ -18,7 +18,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log(credentials)
     try {
       const response = await fetch("/login", {
         method: "POST",
