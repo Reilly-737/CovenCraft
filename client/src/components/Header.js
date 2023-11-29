@@ -16,7 +16,7 @@ const Header = ({ user }) => {
         </Link>
       )}
     </div>
-  )
+  );
 }
 
 export default Header
