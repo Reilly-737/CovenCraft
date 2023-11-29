@@ -109,11 +109,25 @@ class WitchCrafts(Resource):
 
 api.add_resource(WitchCrafts, "/witch_crafts")
 
+class WitchCraftsById(Resource):
+    def delete(self, id):
+        old_wc = db.session.get(WitchCraft, id)
+
+        try:
+            db.session.delete(old_wc)
+            db.session.commit()
+            return {}, 201
+        except Exception as e:
+            db.session.rollback()
+            return {'error': str(e)}, 400
+
+api.add_resource(WitchCraftsById, "/witch_crafts/<int:id>")
+
 class CheckSession(Resource): 
     def get(self): 
         user = Witch.query.filter(Witch.id == session.get('user_id')).first() 
         if user: 
-            return user.to_dict(), 200
+            return user.to_dict(only="id"), 200
         else: 
             return {'message': '401: Not Authorized'}, 401 
 
