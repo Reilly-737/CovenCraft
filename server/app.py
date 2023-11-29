@@ -150,8 +150,10 @@ class Login(Resource):
     def post(self): 
         try:
             data = request.get_json()
+            print("Received data:", data)
+
             user_by_username = Witch.query.filter_by(username = data.get('username')).first()
-            user_by_email = Witch.query.filter_by(email = data.get('email')).first()
+            user_by_email = Witch.query.filter_by(email = data.get('username')).first()
 
             if (user_by_username or user_by_email):
                 user = user_by_username or user_by_email
@@ -160,6 +162,7 @@ class Login(Resource):
                     return user.to_dict(), 200
             return {'message': 'Invalid Credentials'}, 403
         except Exception as e:
+            print("Exception:", e)
             return {'message': 'Invalid Credentials'}, 403
     
 api.add_resource(Login, "/login")
