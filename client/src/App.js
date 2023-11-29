@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Header from "./components/Header";
 import AlertBar from "./components/AlertBar";
-import Profile from "./components/pages/Profile";
-import Home from "./components/pages/Home";
+//import Profile from "./components/pages/Profile";
+//import Home from "./components/pages/Home";
+
 const App = () => {
     const [message, setMessage] = useState(null);
     const [snackType, setSnackType] = useState("");
