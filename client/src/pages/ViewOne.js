@@ -11,7 +11,10 @@ const ViewOne = () => {
   useEffect(() => {
     fetch(`/crafts/${id}`)
     .then(resp => resp.json())
-    .then(setCraft)
+    .then(craftObj => {
+      setCraft(craftObj)
+      check_user_craft()
+    })
     .catch(errorObj => {
         handleSnackType("error")
         setAlertMessage(errorObj.message)
@@ -19,7 +22,10 @@ const ViewOne = () => {
   }, [id])
 
   const check_user_craft = () => {
-    // for witch in witches
+    const user_has_craft = witches?.some(witch => witch.id === user.id)
+    if (user_has_craft) {
+      setHasCraft(true)
+    }
   }
 
   const handleSaveCraft = () =>{

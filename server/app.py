@@ -137,12 +137,12 @@ class WitchCraftsById(Resource):
 api.add_resource(WitchCraftsById, "/witch_crafts/<int:id>")
 
 class CheckSession(Resource): 
-    def get(self): 
-        user = Witch.query.filter_by(id = session.get('user_id')).first() 
-        if user: 
-            return user.to_dict(only="id"), 200
-        else: 
-            return {'message': '401: Not Authorized'}, 401 
+    def get(self):  
+        if "user_id" not in session:
+            return {"message": "Not Authorized"}, 403
+        if user := db.session.get(Witch, session["user_id"]):
+            return user.to_dict(rules=("-email", "-bio")), 200
+        return {"message": "Not Authorized"}, 403
 
 api.add_resource(CheckSession, '/check_session') 
 
