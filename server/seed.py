@@ -113,7 +113,7 @@ CRAFT_DATA = [
         'difficulty': 'advanced',
     },
     {
-        'image': 'https://images.unsplash.com/photo-1514733670139-4d87a1941d55?q=80&w=1778&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        'image': 'https://images.unsplash.com/photo-1601761707463-c9d47c48bb1f?q=80&w=1981&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         'title': 'Dream Enhancing Tea',
         'description': 'Need to make a difficult decision? Curious about the other side? Drink and feel deeply with this tea.',
         'materials': ['mugwort', 'chamomile', 'peppermint'],
@@ -174,8 +174,13 @@ def associate_witches_crafts():
     for _ in range(100):
         witch_instance = db.session.query(Witch).filter_by(id=random.randrange(1, 100)).first()
         craft_instance = db.session.query(Craft).filter_by(id=random.randrange(1, len(CRAFT_DATA))).first()
-        new_witch_craft = WitchCraft(witch_id=witch_instance.id, craft_id=craft_instance.id)
-        db.session.add(new_witch_craft)
+
+        existing_association = db.session.query(WitchCraft).filter_by(
+            witch_id=witch_instance.id, craft_id=craft_instance.id).first()
+
+        if not existing_association:
+            new_witch_craft = WitchCraft(witch_id=witch_instance.id, craft_id=craft_instance.id)
+            db.session.add(new_witch_craft)
     db.session.commit()
     print("WitchCrafts added!")
 

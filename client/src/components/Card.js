@@ -8,7 +8,7 @@ const Card = ({ image, title, description, difficulty, id }) => {
         <h2>{title}</h2>
         <div className="hidden">
           <p>{description}</p>
-          <p>{difficulty}</p>
+          <p className="subtle">{difficulty}</p>
           <Link to={`/crafts/${id}`}>
             <button>Learn more</button>
           </Link>

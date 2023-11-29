@@ -21,7 +21,7 @@ class Witch(db.Model, SerializerMixin):
     witch_crafts = db.relationship(
         "WitchCraft", back_populates="witch", cascade="all, delete-orphan"
     )
-    crafts = association_proxy("witch_crafts", "witch")
+    crafts = association_proxy("witch_crafts", "craft")
 
     # serialization
     serialize_rules = ("-witch_crafts", "-created_at", "-updated_at")

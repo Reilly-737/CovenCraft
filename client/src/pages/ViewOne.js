@@ -5,7 +5,7 @@ const ViewOne = () => {
   const { setAlertMessage, handleSnackType } = useOutletContext()
   const { id } = useParams()
   const [craft, setCraft] = useState({})
-  const { image, title, description, instructions, difficulty, materials } = craft
+  const { image, title, description, instructions, difficulty, materials, witches } = craft
 
   useEffect(() => {
     fetch(`/crafts/${id}`)
@@ -17,21 +17,27 @@ const ViewOne = () => {
     })
   }, [id])
 
-  const materials_list = materials?.map(material => <li>{material["name"]}</li>)
+  const materials_list = materials?.map(material => <li key={material["name"]}>{material["name"]}</li>)
+  const witch_list = witches?.map(witch => <li key={witch["username"]}>{witch["username"]}</li>)
 
   return (
     <div className="one_craft">
-      <main>
-        <h2>{title}</h2>
-        <p>{difficulty}</p>
-        <img src={image} alt={title} />
-        <p>{description}</p>
-        <p>{instructions}</p>
-        <ul>{materials_list}</ul>
-      </main>
-      <aside>
+      <img src={image} alt={title} />
 
-      </aside>
+      <div className='container'>
+        <main className="craft_details">
+          <h2>{title}</h2>
+          <p className="subtle">{difficulty}</p>
+          <p>{description}</p>
+          <p>{instructions}</p>
+          <ul>{materials_list}</ul>
+          <button>Save craft</button>
+        </main>
+        <aside>
+          <h3>Coven Crafters:</h3>
+          <ul>{witch_list}</ul>
+        </aside>
+      </div>
     </div>
   )
 }

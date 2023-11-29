@@ -40,11 +40,24 @@ a {
 a:hover {
     text-decoration: none;
     color: var(--light-purp);
-
 }
 
 h2 { 
-    font-family: 'Bradley Hand';
+    font-family: 'Nothing You Could Do', 'Bradley Hand', 'Brush Script MT', cursive;
+    margin: 1rem;
+}
+
+h3, p, ul {
+    margin: 1rem;
+}
+
+ul {
+    padding: 0 2rem;
+}
+
+.subtle {
+    font-style: italic;
+    color: var(--light-purp);
 }
 
 button {
@@ -54,6 +67,13 @@ button {
     background-color: rgba(0, 0, 0, 0);
     color: var(--main-txt-color);
     font-size: 1.25rem;
+    float: right;
+}
+
+button:hover {
+    cursor: pointer;
+    color: var(--light-purp);
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .container {
@@ -92,25 +112,25 @@ button {
 }
   
 .card:hover .hidden {
-    max-height: 200px;
+    max-height: 300px;
 }
 
 .one_craft {
     min-width: 400px;
-    max-width: 800px;
+    max-width: 900px;
 }
 
 .craft_details {
     min-width: 300px;
-    max-width: 700px;
+    max-width: 600px;
 }
 
-.sidebar {
-    min-width: 300px;
-    max-width: 400px;
+aside {
+    min-width: 100px;
+    max-width: 300px;
 }
 
-main img {
+.one_craft img {
     width: 100%;
     height: 300px;
     object-fit: cover;
