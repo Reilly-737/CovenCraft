@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -59,6 +60,14 @@ const Login = () => {
         />
         <button type="submit">Login</button>
       </form>
+
+      <div>
+        <h2>New to CovenCraft?</h2>
+        <p>No problem! Click below to sign up for a free account!</p>
+        <Link to={"/signup"}>
+          <button>Sign up</button>
+        </Link>
+      </div>
     </div>
   );
 };
