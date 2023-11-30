@@ -1,28 +1,21 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-//import Snackbar from "@material-ui/core/Snackbar";
-//import MuiAlert from "@material-ui/lab/Alert";
+import { useOutletContext } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { setSnackMessage, setSnackType, setSnackOpen } = useOutletContext();
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
   });
-  //const [snackOpen, setSnackOpen] = useState(false);
-  //const [snackMessage, setSnackMessage] = useState("");
-  //const [snackType, setSnackType] = useState("success");
 
   const handleChange = (e) => {
     setCredentials({
       ...credentials,
       [e.target.name]: e.target.value,
     });
-  };
-
-  const handleSnackClose = () => {
-    setSnackOpen(false);
   };
 
   const handleSubmit = async (e) => {
@@ -41,20 +34,20 @@ const Login = () => {
         const user = await response.json();
         console.log("Login successful. User:", user);
         navigate(`/profile/${user.id}`);
-       // setSnackMessage("Welcome back!🔮");
-       // setSnackType("success");
-       // setSnackOpen(true);
+        setSnackMessage("Welcome back!🔮");
+        setSnackType("success");
+        setSnackOpen(true);
       } else {
         console.error("Login failed");
-       // setSnackMessage("Login failed. Please check your credentials.");
-       // setSnackType("error");
-       // setSnackOpen(true);
+        setSnackMessage("Login failed. Please check your credentials.");
+        setSnackType("error");
+        setSnackOpen(true);
       }
     } catch (error) {
       console.error("Error during login:", error);
-      //setSnackMessage("An error occurred during login.");
-      //setSnackType("error");
-      //setSnackOpen(true);
+      setSnackMessage("An error occurred during login.");
+      setSnackType("error");
+      setSnackOpen(true);
     }
   };
 
@@ -86,22 +79,6 @@ const Login = () => {
           <button>Sign up</button>
         </Link>
       </div>
-
-      {/* Snackbar for success or error messages 
-      <Snackbar
-        open={snackOpen}
-        autoHideDuration={6000}
-        onClose={handleSnackClose}
-      >
-        <MuiAlert
-          elevation={6}
-          variant="filled"
-          onClose={handleSnackClose}
-          severity={snackType}
-        >
-          {snackMessage}
-        </MuiAlert>
-      </Snackbar>*/}
     </div>
   );
 };
