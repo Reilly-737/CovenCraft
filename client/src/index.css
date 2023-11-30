@@ -18,11 +18,11 @@
     color: var(--main-txt-color);
 }
 
-/* #outlet {
+#outlet {
     padding: 2rem 4rem;
     display: flex;
     justify-content: center;
-} */
+}
 
 #header {
     width: 100%;
@@ -69,6 +69,7 @@ button {
     color: var(--main-txt-color);
     font-size: 1.25rem;
     margin: 0 2rem;
+    display: inline;
 }
 
 button:hover {

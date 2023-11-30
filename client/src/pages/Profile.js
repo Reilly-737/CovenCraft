@@ -53,7 +53,7 @@ const Profile = () => {
   const allCrafts = userInfo.crafts?.map(craft => <Card key={craft.id} {...craft}/>)
 
   return (
-    <>
+    <div>
       {user && (
         <>
           <div className="main">
@@ -72,7 +72,7 @@ const Profile = () => {
       <div className="container">
         {allCrafts}
       </div>
-    </>
+    </div>
   );
 };
 
