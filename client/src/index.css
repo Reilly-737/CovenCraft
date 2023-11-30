@@ -18,11 +18,11 @@
     color: var(--main-txt-color);
 }
 
-#outlet {
+/* #outlet {
     padding: 2rem 4rem;
     display: flex;
     justify-content: center;
-}
+} */
 
 #header {
     width: 100%;
@@ -49,6 +49,7 @@ h2 {
 
 h3, p, ul {
     margin: 1rem;
+    font-weight: normal;
 }
 
 ul {
@@ -67,7 +68,7 @@ button {
     background-color: rgba(0, 0, 0, 0);
     color: var(--main-txt-color);
     font-size: 1.25rem;
-    float: right;
+    margin: 0 2rem;
 }
 
 button:hover {
@@ -142,4 +143,11 @@ aside {
     width: 100%;
     height: 300px;
     object-fit: cover;
+}
+
+.main {
+    margin: auto;
+    padding: 2rem;
+    min-width: 400px;
+    max-width: 80%;
 }

@@ -4,9 +4,11 @@ import Card from "../components/Card"
 // import SearchFilter from "../components/SearchFilter"
 
 const Home = () => {
-    const { setAlertMessage, handleSnackType } = useOutletContext()
+    const { user, setAlertMessage, handleSnackType } = useOutletContext()
     const [crafts, setCrafts] = useState([])
     const [searchTerm, setSearchTerm] = useState("")
+
+    console.log(user)
 
     useEffect(() => {
         fetch("/crafts")
@@ -40,9 +42,9 @@ const Home = () => {
 
     return (
         <div>
-            <div>
+            <div className="main">
                 <h2>Where magic meets creativity!</h2>
-                <p>Join our enchanting workshops, crafted for local witches to brew a cauldron of artistic spells and conjure one-of-a-kind mystical crafts together.</p>
+                <h3>Join our enchanting workshops, crafted for local witches to brew a cauldron of artistic spells and conjure one-of-a-kind mystical crafts together.</h3>
             </div>
             {/* <SearchFilter searchTerm={searchTerm} newSearch={newSearch} /> */}
             
