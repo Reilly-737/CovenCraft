@@ -8,12 +8,20 @@ const ViewOne = () => {
   const [hasCraft, setHasCraft] = useState(false)
   const { image, title, description, instructions, difficulty, materials, witches } = craft
 
+  const check_user_craft = () => {
+    const user_has_craft = witches?.find(witch => witch['username'] === user.username)
+    if (user_has_craft) {
+      console.log("function")
+      return setHasCraft(true)
+    } 
+  }
+
   useEffect(() => {
+    console.log("effect")
     fetch(`/crafts/${id}`)
     .then(resp => resp.json())
     .then(craftObj => {
       setCraft(craftObj)
-      check_user_craft()
     })
     .catch(errorObj => {
         handleSnackType("error")
@@ -21,12 +29,11 @@ const ViewOne = () => {
     })
   }, [id])
 
-  const check_user_craft = () => {
-    const user_has_craft = witches?.some(witch => witch.id === user.id)
-    if (user_has_craft) {
-      setHasCraft(true)
+  useEffect(() => {
+    if (user && craft.witches) {
+      check_user_craft();
     }
-  }
+  }, [user, witches]);
 
   const handleSaveCraft = () =>{
     if (user) {
@@ -37,15 +44,24 @@ const ViewOne = () => {
         },
         body: JSON.stringify({ craft_id: id }),
       })
-        .then((resp) => resp.json())
-        .then(data => {
-          handleSnackType("success")
-          setAlertMessage("Craft added!")
-        })
-        .catch(errorObj => {
-          handleSnackType("error");
-          setAlertMessage(errorObj.message)
-        })
+      .then((resp) => {
+        if (resp.ok) {
+          resp.json().then(() => {
+            handleSnackType("success")
+            setAlertMessage("Craft added!")
+            setHasCraft(true)
+          })
+        } else {
+          resp.json().then(errObj => {
+            handleSnackType("error")
+            setAlertMessage(errObj.message)
+          })
+        }
+      })
+      .catch(errorObj => {
+        handleSnackType("error");
+        setAlertMessage(errorObj.message)
+      })
     } else {
       handleSnackType("error");
       setAlertMessage("Must be logged in to save Craft!")
@@ -56,10 +72,10 @@ const ViewOne = () => {
     fetch(`/witch_crafts/${id}`, {
       method: 'DELETE',
     })
-      .then((resp) => resp.json())
-      .then(data => {
+      .then(() => {
         handleSnackType("success")
         setAlertMessage("Craft removed!")
+        setHasCraft(false)
       })
       .catch(errorObj => {
         handleSnackType("error")
@@ -82,7 +98,8 @@ const ViewOne = () => {
           <p>{instructions}</p>
           <ul>{materials_list}</ul>
           { hasCraft ? (
-            <button onClick={() => handleDeleteCraft(id)}>Remove craft</button> ) : (
+            <button onClick={() => handleDeleteCraft(craft.id)}>Remove craft</button>
+          ) : (
             <button onClick={handleSaveCraft}>Save craft</button>
           )}
         </main>

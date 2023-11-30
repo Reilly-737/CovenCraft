@@ -111,9 +111,13 @@ class WitchCrafts(Resource):
         user_id = session['user_id']
         craft_id = request.json.get('craft_id')
 
+        witchcraft = WitchCraft.query.filter_by(witch_id=user_id, craft_id=craft_id).first()
+        if witchcraft:
+            return {'message': 'You already have this craft!'}, 400
+
         try:
-            new_wc = WitchCraft(user_id=user_id, craft_id=craft_id)
-            db.session.save(new_wc)
+            new_wc = WitchCraft(witch_id=user_id, craft_id=craft_id)
+            db.session.add(new_wc)
             db.session.commit()
             return new_wc.to_dict(), 201
         except Exception as e:
@@ -124,16 +128,21 @@ api.add_resource(WitchCrafts, "/witch_crafts")
 
 class WitchCraftsById(Resource):
     def delete(self, id):
-        old_wc = db.session.get(WitchCraft, id)
-
         try:
-            db.session.delete(old_wc)
-            db.session.commit()
-            return {}, 201
+            user_id = session['user_id']
+            witchcraft = WitchCraft.query.filter_by(witch_id=user_id, craft_id=id).first()
+
+            if witchcraft:
+                db.session.delete(witchcraft)
+                db.session.commit()
+                return {}, 201
+            else:
+                return {'message': f'Witch {id} does not have craft {id}'}, 400
+
         except Exception as e:
             db.session.rollback()
             return {'error': str(e)}, 400
-
+        
 api.add_resource(WitchCraftsById, "/witch_crafts/<int:id>")
 
 class CheckSession(Resource): 
@@ -150,8 +159,6 @@ class Login(Resource):
     def post(self): 
         try:
             data = request.get_json()
-            print("Received data:", data)
-
             user_by_username = Witch.query.filter_by(username = data.get('username')).first()
             user_by_email = Witch.query.filter_by(email = data.get('username')).first()
 
@@ -162,15 +169,15 @@ class Login(Resource):
                     return user.to_dict(), 200
             return {'message': 'Invalid Credentials'}, 403
         except Exception as e:
-            print("Exception:", e)
             return {'message': 'Invalid Credentials'}, 403
     
 api.add_resource(Login, "/login")
 
 class Logout(Resource): 
     def delete(self):  
-        session['user_id'] = None 
-        return {'message': '204: No Content'}, 204 
+        if "user_id" in session:
+            del session["user_id"]
+        return {}, 204 
 
 api.add_resource(Logout, '/logout')
 
