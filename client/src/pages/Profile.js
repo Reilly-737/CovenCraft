@@ -1,18 +1,16 @@
 import { useEffect, useState } from "react";
-import { useOutletContext, useNavigate, Link } from "react-router-dom";
+import { useOutletContext, useNavigate, Link, useParams } from "react-router-dom";
 import Card from "../components/Card";
 
 const Profile = () => {
-  // const { id: userId } = useParams();
-  // const [user, setUser] = useState(null);
-  // const [bio, setBio] = useState("");
+  const { id } = useParams()
   const { user, setAlertMessage, handleSnackType } = useOutletContext()
   const [userInfo, setUserInfo] = useState({})
   const navigate = useNavigate();
   
   useEffect(() => {
     if (user) {
-      fetch(`/witches/${user.id}`)
+      fetch(`/witches/${id}`)
       .then(resp => {
         if (resp.ok) {
           resp.json().then(setUserInfo)

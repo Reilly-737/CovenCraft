@@ -26,7 +26,7 @@ const App = () => {
         })
     }, []);
 
-    const updateUser = () => {setUser(user)}
+    const updateUser = (user) => {setUser(user)}
 
     const setAlertMessage = (msg) => setMessage(msg);
 
@@ -36,6 +36,7 @@ const App = () => {
         user, 
         setAlertMessage,
         handleSnackType,
+        updateUser,
     };
 
     return (

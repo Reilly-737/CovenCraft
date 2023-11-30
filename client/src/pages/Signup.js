@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { useState } from "react";
+import { useOutletContext } from "react-router-dom";
+import styled from "styled-components";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useOutletContext } from "react-router-dom";
@@ -10,6 +13,25 @@ const Signup = () => {
     // message: "",
     // type: "success",
   });
+function SignUp({ updateUser }) {
+  const [signUp, setSignUp] = useState(true); // Set to true for sign-up only
+  const { user, setAlertMessage, handleSnackType } = useOutletContext();
+  const handleClick = () => setSignUp(true); // Always set to true for sign-up
+
+  const signupSchema = yup.object().shape({
+    username: yup.string().required("Please enter a witch name"),
+    email: yup
+      .string()
+      .email("Must be a valid email")
+      .required("Please enter an email"),
+    password: yup
+      .string()
+      .required("Please enter a witchy password")
+      .min(8, "Password is too short - should be 8 chars minimum.")
+      .matches(/[a-zA-Z0-9]/, "Password can only contain letters and numbers."),
+  });
+
+  const url = signUp ? "/signup" : "/edit";
 
   const formik = useFormik({
     initialValues: {
@@ -59,6 +81,29 @@ const Signup = () => {
         setAlertMessage("An error occurred during signup.");
         handleSnackType("error");
       }
+    validationSchema: signUp ? signupSchema : null,
+    onSubmit: (values) => {
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      })
+        .then((res) => {
+          if (res.ok) {
+            res.json().then(updateUser);
+          } else {
+            res.json().then(errorObj => {
+              handleSnackType("error")
+              setAlertMessage(errorObj.message)
+          });
+          }
+        })
+        .catch(errorObj => {
+          handleSnackType("error")
+          setAlertMessage(errorObj.message)
+      });
     },
   });
 
