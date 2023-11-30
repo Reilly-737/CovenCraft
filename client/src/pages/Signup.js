@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 // import { useHistory } from "react-router-dom";
-// import styled from "styled-components";
+import styled from "styled-components";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
@@ -97,20 +97,20 @@ function SignUp({ updateUser, handleNewError }) {
 
 export default SignUp;
 
-// export const Form = styled.form`
-//   display: flex;
-//   flex-direction: column;
-//   width: 400px;
-//   margin: auto;
-//   font-family: Arial;
-//   font-size: 30px;
-//   input[type="submit"] {
-//     background-color: #42ddf5;
-//     color: white;
-//     height: 40px;
-//     font-family: Arial;
-//     font-size: 30px;
-//     margin-top: 10px;
-//     margin-bottom: 10px;
-//   }
-// `;
+export const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  margin: auto;
+  font-family: Arial;
+  font-size: 30px;
+  input[type="submit"] {
+    background-color: #42ddf5;
+    color: white;
+    height: 40px;
+    font-family: Arial;
+    font-size: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+`;
