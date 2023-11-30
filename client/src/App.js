@@ -13,9 +13,20 @@ const App = () => {
         .then((resp) => { 
             if (resp.ok) { 
                 resp.json().then(setUser); 
-            } 
+            } else {
+                resp.json().then(errorObj => {
+                    handleSnackType("error")
+                    setAlertMessage(errorObj.message)
+                })
+            }
+        })
+        .catch(errorObj => {
+            handleSnackType("error")
+            setAlertMessage(errorObj.message)
         })
     }, []);
+
+    const updateUser = () => {setUser(user)}
 
     const setAlertMessage = (msg) => setMessage(msg);
 
@@ -29,7 +40,9 @@ const App = () => {
 
     return (
         <div>
-            <Header user={user} />
+            <Header user={user} updateUser={updateUser} 
+                setAlertMessage={setAlertMessage} handleSnackType={handleSnackType} 
+            />
             {message && (
                 <AlertBar
                     message={message}
