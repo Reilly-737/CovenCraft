@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-// import { useHistory } from "react-router-dom";
+import { useState } from "react";
+import { useOutletContext } from "react-router-dom";
 import styled from "styled-components";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
-function SignUp({ updateUser, handleNewError }) {
+function SignUp({ updateUser }) {
   const [signUp, setSignUp] = useState(true); // Set to true for sign-up only
-  // const history = useHistory();
-  // const { user, setAlertMessage, handleSnackType } = useOutletContext();
+  const { user, setAlertMessage, handleSnackType } = useOutletContext();
   const handleClick = () => setSignUp(true); // Always set to true for sign-up
+
   const signupSchema = yup.object().shape({
     username: yup.string().required("Please enter a witch name"),
     email: yup
@@ -21,7 +21,8 @@ function SignUp({ updateUser, handleNewError }) {
       .min(8, "Password is too short - should be 8 chars minimum.")
       .matches(/[a-zA-Z0-9]/, "Password can only contain letters and numbers."),
   });
-  const url = signUp ? "/signup" : "/login";
+
+  const url = signUp ? "/signup" : "/edit";
 
   const formik = useFormik({
     initialValues: {
@@ -42,10 +43,16 @@ function SignUp({ updateUser, handleNewError }) {
           if (res.ok) {
             res.json().then(updateUser);
           } else {
-            res.json().then((errorObj) => handleNewError(errorObj.message));
+            res.json().then(errorObj => {
+              handleSnackType("error")
+              setAlertMessage(errorObj.message)
+          });
           }
         })
-        .catch(handleNewError);
+        .catch(errorObj => {
+          handleSnackType("error")
+          setAlertMessage(errorObj.message)
+      });
     },
   });
 
@@ -96,21 +103,3 @@ function SignUp({ updateUser, handleNewError }) {
 }
 
 export default SignUp;
-
-export const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  width: 400px;
-  margin: auto;
-  font-family: Arial;
-  font-size: 30px;
-  input[type="submit"] {
-    background-color: #42ddf5;
-    color: white;
-    height: 40px;
-    font-family: Arial;
-    font-size: 30px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-`;

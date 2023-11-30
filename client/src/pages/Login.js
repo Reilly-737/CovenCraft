@@ -3,7 +3,7 @@ import { useNavigate, Link, useOutletContext } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { setAlertMessage, handleSnackType } = useOutletContext()
+  const { updateUser, setAlertMessage, handleSnackType } = useOutletContext()
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
@@ -19,31 +19,31 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await fetch("/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(credentials),
-      });
-
-      if (response.ok) {
-        const user = await response.json();
-        console.log("Login successful. User:", user);
-        navigate(`/profile/${user.id}`);
-        handleSnackType("success");
-        setAlertMessage("Welcome back!🔮");
+    fetch("/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(credentials),
+    })
+    .then(resp => {
+      if (resp.ok) {
+        resp.json().then(userObj => {
+          updateUser(userObj)
+          return userObj
+        })
+        .then(userObj => navigate(`/profile/${userObj.id}`))
       } else {
-        console.error("Login failed");
-        handleSnackType("error");
-        setAlertMessage("Login failed. Please check your credentials.");
+        resp.json().then(err => {
+          handleSnackType("error")
+          setAlertMessage(err.message)
+        })
       }
-    } catch (error) {
-      console.error("Error during login:", error);
+    })
+    .catch(errObj => {
       handleSnackType("error");
-      setAlertMessage("An error occurred during login.");
-    }
+      setAlertMessage("An error occurred during login.")
+    })
   };
 
   return (
