@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 
 const Profile = () => {
   const navigate = useNavigate();
-  const { id: userId } = useParams(); // Using useParams to get userId from the route
+  const { id: userId } = useParams();
   const [user, setUser] = useState(null);
   const [bio, setBio] = useState("");
-  const [savedCrafts, setSavedCrafts] = useState([]);
+  const { setSnackMessage, setSnackType, setSnackOpen } = useOutletContext(); // Use your actual context functions
 
   useEffect(() => {
     fetchProfile();
@@ -21,7 +22,6 @@ const Profile = () => {
       .then((response) => response.json())
       .then((result) => {
         setUser(result);
-        setSavedCrafts(result.savedCrafts); 
       })
       .catch((error) => console.error("Error fetching user profile:", error));
   };
@@ -34,9 +34,15 @@ const Profile = () => {
     fetch(`/witches/${userId}`, { method: "DELETE" })
       .then((response) => {
         if (response.ok) {
+          setSnackMessage("Witch's profile vanished into mist.🦇");
+          setSnackType("success");
+          setSnackOpen(true);
           navigate("/");
         } else {
           console.error("Failed to delete profile");
+          setSnackMessage("Failed to delete profile.");
+          setSnackType("error");
+          setSnackOpen(true);
         }
       })
       .catch((error) => console.error("Error deleting profile:", error));
@@ -57,8 +63,14 @@ const Profile = () => {
       .then((response) => {
         if (response.ok) {
           fetchProfile();
+          setSnackMessage("Bio updated successfully.🕷️");
+          setSnackType("success");
+          setSnackOpen(true);
         } else {
           console.error("Sorry! Failed to update bio");
+          setSnackMessage("Failed to update bio.");
+          setSnackType("error");
+          setSnackOpen(true);
         }
       })
       .catch((error) => console.error("Error updating bio:", error));
@@ -71,12 +83,21 @@ const Profile = () => {
       });
 
       if (response.ok) {
+        setSnackMessage("Witch logged out.🌙");
+        setSnackType("success");
+        setSnackOpen(true);
         navigate("/login");
       } else {
         console.error("Logout failed");
+        setSnackMessage("Logout failed.");
+        setSnackType("error");
+        setSnackOpen(true);
       }
     } catch (error) {
       console.error("Error during logout:", error);
+      setSnackMessage("An error occurred during logout.");
+      setSnackType("error");
+      setSnackOpen(true);
     }
   };
 
@@ -95,13 +116,6 @@ const Profile = () => {
           <button onClick={updateBio}>Update Bio</button>
           <button onClick={deleteProfile}>Delete Profile</button>
           <button onClick={handleLogout}>Logout</button>
-
-          <h3>Saved Crafts</h3>
-          {savedCrafts.map((craft) => (
-            <div key={craft.id}>
-              <p>{craft.title}</p>
-            </div>
-          ))}
         </>
       )}
     </div>

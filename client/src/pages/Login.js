@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { setSnackMessage, setSnackType, setSnackOpen } = useOutletContext();
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
@@ -18,6 +20,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const response = await fetch("/login", {
         method: "POST",
@@ -29,13 +32,22 @@ const Login = () => {
 
       if (response.ok) {
         const user = await response.json();
-        
+        console.log("Login successful. User:", user);
         navigate(`/profile/${user.id}`);
+        setSnackMessage("Welcome back!🔮");
+        setSnackType("success");
+        setSnackOpen(true);
       } else {
         console.error("Login failed");
+        setSnackMessage("Login failed. Please check your credentials.");
+        setSnackType("error");
+        setSnackOpen(true);
       }
     } catch (error) {
       console.error("Error during login:", error);
+      setSnackMessage("An error occurred during login.");
+      setSnackType("error");
+      setSnackOpen(true);
     }
   };
 
