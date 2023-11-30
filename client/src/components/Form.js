@@ -1,11 +1,12 @@
-import React from 'react'
-import { useState, useEffect } from "react";
-import { object, string, number } from "yup";
+import React, { useState, useEffect } from "react";
+import { object, string } from "yup";
 import { useOutletContext, useNavigate } from "react-router-dom";
 import PasswordStrengthBar from "react-password-strength-bar";
 import bcrypt from "bcryptjs";
 
-const URL = "http://localhost:3005/witches/<int:id>"; 
+const API_BASE_URL = "http://localhost:3005/witches";
+const SUCCESS_MESSAGE = "You're all set!";
+const ERROR_MESSAGE = "Oops! Something went wrong. Please try again.";
 
 const initialValue = {
   username: "",
@@ -34,7 +35,7 @@ const Form = ({ edit }) => {
       setFormData({
         username: user.username || "",
         email: user.email || "",
-        password: "", 
+        password: "",
         bio: user.bio || "",
       });
     }
@@ -55,10 +56,23 @@ const Form = ({ edit }) => {
       });
   };
 
+  const handleApiResponse = async (
+    response,
+    successCallback,
+    errorCallback
+  ) => {
+    try {
+      const data = await response.json();
+      successCallback(data);
+    } catch (error) {
+      errorCallback(error.message);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const url = `${URL}/${user?.id || ""}`;
+    const url = edit ? `${API_BASE_URL}/${user?.id}` : API_BASE_URL;
     const method = user ? "PATCH" : "POST";
 
     try {
@@ -83,20 +97,29 @@ const Form = ({ edit }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(processedForm),
-      })
-        .then((resp) => resp.json())
-        .then((userData) => {
-          updateState(userData)
-          navigate("/witches")
-        })
-        .catch((err) => {
-          showErrorToUser(err.message)
-        });
+      }).then((response) =>
+        handleApiResponse(
+          response,
+          (userData) => {
+            updateState(userData);
+            navigate("/witches");
+            handleSnackType("success");
+            setAlertMessage(SUCCESS_MESSAGE);
+          },
+          (error) => {
+            showErrorToUser(error);
+            handleSnackType("error");
+            setAlertMessage(ERROR_MESSAGE);
+          }
+        )
+      );
     } catch (err) {
       showValidationErrorsToUser(err.message);
+      handleSnackType("error");
+      setAlertMessage(ERROR_MESSAGE);
     }
   };
-
+  
   return (
     <div>
       <div className="form-div">
@@ -146,26 +169,23 @@ const Form = ({ edit }) => {
               />
             </label>
           )}
-
           {readyToSubmit ? (
             <input
               type="submit"
               value="Submit"
-              className="btn-large bg-yellow larger-text"
+              className="btn-large bg-green larger-text"
             />
           ) : (
             <input
               type="submit"
               value="Submit"
               disabled
-              className="btn-large bg-yellow larger-text"
+              className="btn-large bg-green larger-text"
             />
           )}
         </form>
       </div>
     </div>
   );
-};
-
+}
 export default Form;
-
