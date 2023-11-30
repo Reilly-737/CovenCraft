@@ -22,12 +22,12 @@ const Header = ({ user, updateUser, setAlertMessage, handleSnackType }) => {
       </NavLink>
       <>
         {user ? (
-          <>
-            <Link to={"/profile/:id"}>
+          <div>
+            <Link to={`/profile/${user.id}`}>
               <button>Profile</button>
             </Link>
             <button onClick={handleLogout}>Logout</button>
-          </>
+          </div>
         ) : (
           <Link to={"/login"}>
             <button>Login</button>

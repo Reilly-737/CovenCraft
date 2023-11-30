@@ -1,124 +1,78 @@
-import React, { useEffect, useState, useContext } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useOutletContext } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useOutletContext, useNavigate, Link } from "react-router-dom";
+import Card from "../components/Card";
 
 const Profile = () => {
+  // const { id: userId } = useParams();
+  // const [user, setUser] = useState(null);
+  // const [bio, setBio] = useState("");
+  const { user, setAlertMessage, handleSnackType } = useOutletContext()
+  const [userInfo, setUserInfo] = useState({})
   const navigate = useNavigate();
-  const { id: userId } = useParams();
-  const [user, setUser] = useState(null);
-  const [bio, setBio] = useState("");
-  const { setSnackMessage, setSnackType, setSnackOpen } = useOutletContext(); // Use your actual context functions
-
+  
   useEffect(() => {
-    fetchProfile();
-  }, [userId]);
-
-  const fetchProfile = () => {
-    if (!userId) {
-      return;
-    }
-
-    fetch(`/witches/${userId}`)
-      .then((response) => response.json())
-      .then((result) => {
-        setUser(result);
+    if (user) {
+      fetch(`/witches/${user.id}`)
+      .then(resp => {
+        if (resp.ok) {
+          resp.json().then(setUserInfo)
+        } else {
+          resp.json().then(err => {
+            handleSnackType("error")
+            setAlertMessage(err.message)
+          })
+        }
       })
-      .catch((error) => console.error("Error fetching user profile:", error));
-  };
+      .catch(err => {
+        handleSnackType("error")
+        setAlertMessage(err.message)
+      })
+    }
+  }, [user])
 
   const deleteProfile = () => {
-    if (!userId) {
+    if (!user) {
       return;
     }
 
-    fetch(`/witches/${userId}`, { method: "DELETE" })
+    fetch(`/witches/${user.id}`, { method: "DELETE" })
       .then((response) => {
         if (response.ok) {
-          setSnackMessage("Witch's profile vanished into mist.🦇");
-          setSnackType("success");
-          setSnackOpen(true);
+          handleSnackType("success");
+          setAlertMessage("Witch's profile vanished into mist.🦇");
           navigate("/");
         } else {
           console.error("Failed to delete profile");
-          setSnackMessage("Failed to delete profile.");
-          setSnackType("error");
-          setSnackOpen(true);
+          handleSnackType("error");
+          setAlertMessage("Failed to delete profile.");
         }
       })
       .catch((error) => console.error("Error deleting profile:", error));
   };
 
-  const updateBio = () => {
-    if (!userId) {
-      return;
-    }
-
-    fetch(`/witches/${userId}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ bio }),
-    })
-      .then((response) => {
-        if (response.ok) {
-          fetchProfile();
-          setSnackMessage("Bio updated successfully.🕷️");
-          setSnackType("success");
-          setSnackOpen(true);
-        } else {
-          console.error("Sorry! Failed to update bio");
-          setSnackMessage("Failed to update bio.");
-          setSnackType("error");
-          setSnackOpen(true);
-        }
-      })
-      .catch((error) => console.error("Error updating bio:", error));
-  };
-
-  const handleLogout = async () => {
-    try {
-      const response = await fetch("/logout", {
-        method: "DELETE",
-      });
-
-      if (response.ok) {
-        setSnackMessage("Witch logged out.🌙");
-        setSnackType("success");
-        setSnackOpen(true);
-        navigate("/login");
-      } else {
-        console.error("Logout failed");
-        setSnackMessage("Logout failed.");
-        setSnackType("error");
-        setSnackOpen(true);
-      }
-    } catch (error) {
-      console.error("Error during logout:", error);
-      setSnackMessage("An error occurred during logout.");
-      setSnackType("error");
-      setSnackOpen(true);
-    }
-  };
+  const allCrafts = userInfo.crafts?.map(craft => <Card key={craft.id} {...craft}/>)
 
   return (
-    <div>
+    <>
       {user && (
         <>
-          <h2>{user.name}'s Profile</h2>
-          <p>Username: {user.username}</p>
-          <p>Bio: {user.bio}</p>
-          <textarea
-            value={bio}
-            onChange={(e) => setBio(e.target.value)}
-            placeholder="Enter your bio"
-          />
-          <button onClick={updateBio}>Update Bio</button>
-          <button onClick={deleteProfile}>Delete Profile</button>
-          <button onClick={handleLogout}>Logout</button>
+          <div className="main">
+            <h2>{userInfo.username}'s Profile</h2>
+            <p>Username: {userInfo.username}</p>
+            <p>Bio: {userInfo.bio}</p>
+          </div>
+          <div className="main">
+            <Link to="/edit">
+              <button>Edit Profile</button>
+            </Link>
+            <button onClick={deleteProfile}>Delete Profile</button>
+          </div>
         </>
       )}
-    </div>
+      <div className="container">
+        {allCrafts}
+      </div>
+    </>
   );
 };
 

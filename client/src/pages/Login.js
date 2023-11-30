@@ -1,11 +1,9 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { useOutletContext } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate, Link, useOutletContext } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { setSnackMessage, setSnackType, setSnackOpen } = useOutletContext();
+  const { setAlertMessage, handleSnackType } = useOutletContext()
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
@@ -34,25 +32,22 @@ const Login = () => {
         const user = await response.json();
         console.log("Login successful. User:", user);
         navigate(`/profile/${user.id}`);
-        setSnackMessage("Welcome back!🔮");
-        setSnackType("success");
-        setSnackOpen(true);
+        handleSnackType("success");
+        setAlertMessage("Welcome back!🔮");
       } else {
         console.error("Login failed");
-        setSnackMessage("Login failed. Please check your credentials.");
-        setSnackType("error");
-        setSnackOpen(true);
+        handleSnackType("error");
+        setAlertMessage("Login failed. Please check your credentials.");
       }
     } catch (error) {
       console.error("Error during login:", error);
-      setSnackMessage("An error occurred during login.");
-      setSnackType("error");
-      setSnackOpen(true);
+      handleSnackType("error");
+      setAlertMessage("An error occurred during login.");
     }
   };
 
   return (
-    <div>
+    <div className="main">
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <label>Username:</label>
