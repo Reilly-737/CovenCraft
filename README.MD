@@ -23,8 +23,9 @@ This application combines a React frontend with a Flask-SQLAlchemy backend to al
 - In one terminal window:
   - Run `pipenv install && pipenv shell` to install packages and enter virtual environment.
   - Run `touch .env` in the main directory and open the new file.
+  - In the `.env` file, insert `FLASK_RUN_PORT = 5555`,  `APP_SECRET = `
   - Enter the Flask shell using `flask shell`, then run `import secrets`, then `secrets.token_hex(32). Copy the output code.
-  - In the `.env` file, insert `FLASK_RUN_PORT = 5555`,  `APP_SECRET = <paste code here>`
+  - Paste the code after `APP_SECRET = <paste here>` and exit the shell with `Ctrl-D`.
   - Enter the server directory using `cd server` and run `python seed.py`. It may take a moment to seed the database!
   - Run `python app.py` to start the server.
 - In a second terminal window:
