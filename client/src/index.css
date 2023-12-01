@@ -71,6 +71,7 @@ form input[type="submit"] {
     font-size: 1.25rem;
     margin: 0 2rem;
     display: inline;
+    float: right;
 }
 
 button:hover,
@@ -153,6 +154,13 @@ aside {
     padding: 2rem;
     min-width: 400px;
     max-width: 80%;
+}
+
+.buttons {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    padding: 2rem;
 }
 
 label,
