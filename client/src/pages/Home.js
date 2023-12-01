@@ -8,8 +8,6 @@ const Home = () => {
     const [crafts, setCrafts] = useState([])
     const [searchTerm, setSearchTerm] = useState("")
 
-    console.log(user)
-
     useEffect(() => {
         fetch("/crafts")
         .then(resp => {

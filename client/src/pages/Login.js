@@ -50,19 +50,21 @@ const Login = () => {
     <div className="main">
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
-        <label>Username:</label>
+        <label>Email or Username</label>
         <input
           type="text"
           name="username"
           value={credentials.username}
           onChange={handleChange}
+          className="block"
         />
-        <label>Password:</label>
+        <label>Password</label>
         <input
           type="password"
           name="password"
           value={credentials.password}
           onChange={handleChange}
+          className="block"
         />
         <button type="submit">Login</button>
       </form>

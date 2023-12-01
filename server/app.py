@@ -33,7 +33,7 @@ class Crafts(Resource):
             crafts = [craft.to_dict() for craft in Craft.query]
             return crafts, 200
         except Exception as e:
-            return {'error': str(e)}, 400
+            return {'message': str(e)}, 400
 
 api.add_resource(Crafts, "/crafts")
 
@@ -67,7 +67,7 @@ class Witches(Resource):
             return new_witch.to_dict(), 201
         except Exception as e:
             db.session.rollback()
-            return {'error': str(e)}, 400
+            return {'message': str(e)}, 400
     
 api.add_resource(Witches, "/witches")
 
@@ -88,7 +88,7 @@ class WitchesById(Resource):
             return witch.to_dict(), 200
         except Exception as e:
             db.session.rollback()
-            return {'error': str(e)}, 400
+            return {'message': str(e)}, 400
         
     def delete(self, id):
         witch = Witch.query.get_or_404(id, 
@@ -99,7 +99,7 @@ class WitchesById(Resource):
             return {}, 204
         except Exception as e:
             db.session.rollback()
-            return {'error': str(e)}, 400
+            return {'message': str(e)}, 400
         
 api.add_resource(WitchesById, "/witches/<int:id>")
 
@@ -122,7 +122,7 @@ class WitchCrafts(Resource):
             return new_wc.to_dict(), 201
         except Exception as e:
             db.session.rollback()
-            return {'error': str(e)}, 400
+            return {'message': str(e)}, 400
 
 api.add_resource(WitchCrafts, "/witch_crafts")
 
@@ -141,7 +141,7 @@ class WitchCraftsById(Resource):
 
         except Exception as e:
             db.session.rollback()
-            return {'error': str(e)}, 400
+            return {'message': str(e)}, 400
         
 api.add_resource(WitchCraftsById, "/witch_crafts/<int:id>")
 

@@ -61,7 +61,8 @@ ul {
     color: var(--light-purp);
 }
 
-button {
+button,
+form input[type="submit"] {
     padding: 0.5rem 2.5rem;
     border: 2px solid var(--light-purp);
     text-decoration: none;
@@ -72,7 +73,8 @@ button {
     display: inline;
 }
 
-button:hover {
+button:hover,
+form input[type="submit"]:hover {
     cursor: pointer;
     color: var(--light-purp);
     background-color: rgba(255, 255, 255, 0.1);
@@ -151,4 +153,15 @@ aside {
     padding: 2rem;
     min-width: 400px;
     max-width: 80%;
+}
+
+label,
+.block {
+    display: block;
+    margin: 1rem;
+    width: 80%;
+}
+
+.textarea {
+    height: 100px;
 }
