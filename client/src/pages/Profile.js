@@ -40,12 +40,14 @@ const Profile = () => {
           setAlertMessage("Witch's profile vanished into mist.🦇");
           navigate("/");
         } else {
-          console.error("Failed to delete profile");
           handleSnackType("error");
           setAlertMessage("Failed to delete profile.");
         }
       })
-      .catch((error) => console.error("Error deleting profile:", error));
+      .catch(error => {
+        handleSnackType("error");
+        setAlertMessage(error.message);
+      })
   };
 
   const allCrafts = userInfo.crafts?.map(craft => <Card key={craft.id} {...craft}/>)
