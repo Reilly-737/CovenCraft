@@ -11,7 +11,6 @@ const ViewOne = () => {
   const check_user_craft = () => {
     const user_has_craft = witches?.find(witch => witch['username'] === user.username)
     if (user_has_craft) {
-      console.log("function")
       return setHasCraft(true)
     } 
   }
@@ -26,7 +25,7 @@ const ViewOne = () => {
         handleSnackType("error")
         setAlertMessage(errorObj.message)
     })
-  }, [id])
+  }, [id, witches])
 
   useEffect(() => {
     if (user && craft.witches) {

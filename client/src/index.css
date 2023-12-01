@@ -161,6 +161,7 @@ aside {
     gap: 2rem;
     flex-wrap: wrap;
     padding: 2rem;
+    justify-content: flex-end;
 }
 
 label,
