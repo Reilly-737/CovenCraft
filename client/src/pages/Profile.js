@@ -60,7 +60,7 @@ const Profile = () => {
             <p>Bio: {userInfo.bio}</p>
           </div>
           <div className="main">
-            <Link to="/edit">
+            <Link to="/profile/edit">
               <button>Edit Profile</button>
             </Link>
             <button onClick={deleteProfile}>Delete Profile</button>

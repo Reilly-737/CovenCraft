@@ -1,10 +1,12 @@
+
 import { useState } from "react";
 import { useFormik } from "formik";
-import * as yup from "yup";
+import * as yup from "yup"
 import { useOutletContext } from "react-router-dom";
 import Form from "../components/Form";
 
 const Signup = () => {
+
   const { setAlertMessage, handleSnackType } = useOutletContext();
   const [snackbar, setSnackbar] = useState({
     // open: false,
@@ -119,10 +121,20 @@ const Signup = () => {
         <div>
           <button type="submit">Sign Up</button>
         </div>
-      </form>
+      </form> 
+  const { setAlertMessage, handleSnackType } = useOutletContext()
+
+  return (
+    <div className="main">
+      <h2>Create Profile</h2>
+      <div>
+        <Form />
+      </div>
+
     </div>
-  );
-};
+  )
+}
+
 
 export default Signup;
 

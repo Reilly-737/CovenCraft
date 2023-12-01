@@ -1,11 +1,19 @@
+
 import React from 'react'
+
+import { useOutletContext } from "react-router-dom"
 import Form from "../components/Form";
 
 const Edit = () => {
+  const { user, setAlertMessage, handleSnackType } = useOutletContext()
+
   return (
-    <div>
-    <h2>Edit Profile</h2>
-    <Form edit />
+
+    <div className="main">
+      <h2>Edit Profile</h2>
+      <div>
+        <Form user={user} />
+      </div>
     </div>
   )
 }
