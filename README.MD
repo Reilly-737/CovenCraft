@@ -31,7 +31,7 @@ This application combines a React frontend with a Flask-SQLAlchemy backend to al
 
 ## Using the Application
 
-
+![Screenshot of app](./client/public/screenshot1.png)
 
 - Explore the home page to view all crafts! Hover over the image to view a short summary.
 - Click the `Learn more` button to view all the details of one craft.
@@ -45,7 +45,7 @@ This application combines a React frontend with a Flask-SQLAlchemy backend to al
 ## Attributions
 
 - The project was completed with collaboration from: `Kat Tannehill`, `Reilly Wentz`, and `Jazlin Yu`
-- This project was created with combination of skills learned from the `Flatiron` curriculum and our own individual research.
+- This project was created with combination of skills learned from the [Flatiron](https://flatironschool.com/) curriculum and our own individual research.
 - Many of the photos used for the purposes of this project were supplied by [Unsplash](https://unsplash.com/).
 
 ## Join Us in Crafting Magick
