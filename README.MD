@@ -1,41 +1,42 @@
-# CovenCraft
+# CovenCraft 🌙🔮
 
-Where magick meets creativity! Join our enchanting workshops, crafted for local witches to brew a cauldron of artistic spells and conjure one-of-a-kind mystical crafts together.
+## Where magick meets creativity! 
 
-This application combines a React frontend with a flask-SQLAlchemy backend to allow visitors to view a list of upcoming crafting events for those interested in adding a little magick to their life. Sign up or log in to register for a workshop. View upcoming Crafts you've registered for on your profile, and connect with local witches!
+Welcome to CovenCraft, the enchanting social platform where magick and creativity intertwine! Our platform is designed for witches to come together and explore a magical realm of artistic spells through captivating workshops.
+
+This application combines a React frontend with a Flask-SQLAlchemy backend to allow visitors to view a list of Crafts for those interested in adding a little magick to their life. Sign up or log in to save Crafts to your profile.
 
 ## Home
 
-- [Dependencies](#dependencies)
 - [Starting the Application](#starting-the-application)
 - [Using the Application](#using-the-application)
 - [Optional Features](#optional-features)
 - [License](#license)
 - [Attributions](#attributions)
-- [What I Learned](#what-i-learned)
 
 ## Intro To Project
 
 - This project was made to complete the assignment `Phase 4 Project` for the `SE-West-091123` class for the [Flatiron](https://flatironschool.com/) Software Engineering Boot Camp.
-- The project was completed using the following: `React`, `React Router`, `Flask-SQLAlchemy`.
-
-## Dependencies
-
-
+- The project was completed using the following: `Flask-SQLAlchemy`, `React`, `React Router`, `Formik`, `Yup`, and `Bcrypt`.
 
 ## Starting the Application
 
 - Fork and clone this repo, and open in your favorite code editor.
-- Run `pipenv install && pipenv shell` to install packages and enter virtual environment.
-- Open a second terminal, and run `npm i && npm start` to install necessary packages and start the program.
+- In one terminal window:
+  - Run `pipenv install && pipenv shell` to install packages and enter virtual environment.
+  - Enter the server directory using `cd server` and run `python seed.py`. It may take a moment to seed the database!
+  - Run `python app.py` to start the server
+- In a second terminal window:
+  - Enter the client directory using `cd client`, and run `npm i && npm start` to install necessary packages and start the program.
 
 ## Using the Application
 
 
 
-## Optional Features
-
-
+- Explore the home page to view all crafts! Hover over the image to view a short summary.
+- Click the `Learn more` button to view all the details of one craft.
+- If you'd like to save crafts, log in or create a free account!
+- Crafts can be saved to your profile. If you've changed your mind about a craft, go to it's page and remove it.
 
 ## License
 
@@ -47,10 +48,9 @@ This application combines a React frontend with a flask-SQLAlchemy backend to al
 - This project was created with combination of skills learned from the `Flatiron` curriculum and our own individual research.
 - Many of the photos used for the purposes of this project were supplied by [Unsplash](https://unsplash.com/).
 
-## What I Learned
+## Join Us in Crafting Magick
+Whether you're a novice or an experienced witch, CovenCraft welcomes you to join our mystical community. Unleash your creativity, connect with other witches, and make your craft truly magical.
 
-- `Kat`: 
-- `Reilly`: 
-- `Jazlin`: 
+May your spells be ever enchanting! 🌙🔮
 
 [Back To Top](#home)
