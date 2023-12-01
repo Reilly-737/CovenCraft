@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { object, string } from "yup";
 import { useOutletContext, useNavigate } from "react-router-dom";
+import styled from "styled-components";
 import PasswordStrengthBar from "react-password-strength-bar";
 import bcrypt from "bcryptjs";
 
@@ -24,6 +25,7 @@ const formSchema = object().shape({
   bio: string().required("Bio is required"),
 });
 
+
 const Form = ({ edit }) => {
   const navigate = useNavigate();
   const { setAlertMessage, handleSnackType, user } = useOutletContext();
@@ -39,7 +41,7 @@ const Form = ({ edit }) => {
         bio: user.bio || "",
       });
     }
-  }, [user]);
+  }, [user, edit]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -56,16 +58,17 @@ const Form = ({ edit }) => {
       });
   };
 
-  const handleApiResponse = async (
-    response,
-    successCallback,
-    errorCallback
-  ) => {
+  const handleApiResponse = async (response) => {
     try {
       const data = await response.json();
-      successCallback(data);
+
+      navigate("/witches");
+      handleSnackType("success");
+      setAlertMessage(SUCCESS_MESSAGE);
     } catch (error) {
-      errorCallback(error.message);
+      console.error(error);
+      handleSnackType("error");
+      setAlertMessage(ERROR_MESSAGE);
     }
   };
 
@@ -97,29 +100,13 @@ const Form = ({ edit }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(processedForm),
-      }).then((response) =>
-        handleApiResponse(
-          response,
-          (userData) => {
-            updateState(userData);
-            navigate("/witches");
-            handleSnackType("success");
-            setAlertMessage(SUCCESS_MESSAGE);
-          },
-          (error) => {
-            showErrorToUser(error);
-            handleSnackType("error");
-            setAlertMessage(ERROR_MESSAGE);
-          }
-        )
-      );
+      }).then((response) => handleApiResponse(response));
     } catch (err) {
-      showValidationErrorsToUser(err.message);
       handleSnackType("error");
       setAlertMessage(ERROR_MESSAGE);
     }
   };
-  
+
   return (
     <div>
       <div className="form-div">
@@ -134,6 +121,7 @@ const Form = ({ edit }) => {
               onChange={handleChange}
             />
           </label>
+
           <label htmlFor="email" className="col-3">
             Email:
             <input
@@ -144,6 +132,7 @@ const Form = ({ edit }) => {
               onChange={handleChange}
             />
           </label>
+
           <label htmlFor="bio" className="col-6">
             Bio:
             <textarea
@@ -153,6 +142,7 @@ const Form = ({ edit }) => {
               onChange={handleChange}
             />
           </label>
+
           {!edit && (
             <label htmlFor="password" className="col-6">
               Password:
@@ -187,5 +177,5 @@ const Form = ({ edit }) => {
       </div>
     </div>
   );
-}
+};
 export default Form;
