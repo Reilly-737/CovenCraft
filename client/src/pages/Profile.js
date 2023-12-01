@@ -12,6 +12,8 @@ const Profile = () => {
     if (user) {
       if (user.id !== Number(id)) {
         navigate("/")
+        handleSnackType("error")
+        setAlertMessage("That doesn't belong to you!")
       }
 
       fetch(`/witches/${id}`)
