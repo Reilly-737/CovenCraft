@@ -10,8 +10,6 @@ This application combines a React frontend with a Flask-SQLAlchemy backend to al
 
 - [Starting the Application](#starting-the-application)
 - [Using the Application](#using-the-application)
-- [Optional Features](#optional-features)
-- [License](#license)
 - [Attributions](#attributions)
 
 ## Intro To Project
@@ -37,10 +35,6 @@ This application combines a React frontend with a Flask-SQLAlchemy backend to al
 - Click the `Learn more` button to view all the details of one craft.
 - If you'd like to save crafts, log in or create a free account!
 - Crafts can be saved to your profile. If you've changed your mind about a craft, go to it's page and remove it.
-
-## License
-
-- This project is is made in conjunction with the standard `MIT` license provided by `GitHub` upon creation of a new repository. A copy of the license is included with this project in a file named: `LICENSE`.
 
 ## Attributions
 
