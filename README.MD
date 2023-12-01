@@ -26,7 +26,9 @@ This application combines a React frontend with a Flask-SQLAlchemy backend to al
   - In the `.env` file, insert `FLASK_RUN_PORT = 5555`,  `APP_SECRET = `
   - Enter the Flask shell using `flask shell`, then run `import secrets`, then `secrets.token_hex(32). Copy the output code.
   - Paste the code after `APP_SECRET = <paste here>` and exit the shell with `Ctrl-D`.
-  - Enter the server directory using `cd server` and run `python seed.py`. It may take a moment to seed the database!
+  - Enter the server directory using `cd server`.
+  - Run `flask db init`, `flask db migrate -m "inital migration"`, and `flask db upgrade` to create the database.
+  - Run `python seed.py`. It may take a moment to seed the database!
   - Run `python app.py` to start the server.
 - In a second terminal window:
   - Enter the client directory using `cd client`, and run `npm i && npm start` to install necessary packages and start the program.
