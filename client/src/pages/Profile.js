@@ -10,6 +10,10 @@ const Profile = () => {
   
   useEffect(() => {
     if (user) {
+      if (user.id !== Number(id)) {
+        navigate("/")
+      }
+
       fetch(`/witches/${id}`)
       .then(resp => {
         if (resp.ok) {
@@ -61,7 +65,7 @@ const Profile = () => {
             <h2>{userInfo.username}'s Profile</h2>
             <p>Username: {userInfo.username}</p>
             <p>Bio: {userInfo.bio}</p>
-            
+
             <div className="buttons">
               <Link to="/profile/edit">
                 <button>Edit Profile</button>
