@@ -1,10 +1,8 @@
-import React, { useState } from "react";
 import { useState } from "react";
-import { useOutletContext } from "react-router-dom";
-import styled from "styled-components";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useOutletContext } from "react-router-dom";
+import Form from "../components/Form";
 
 const Signup = () => {
   const { setAlertMessage, handleSnackType } = useOutletContext();
@@ -13,25 +11,6 @@ const Signup = () => {
     // message: "",
     // type: "success",
   });
-function SignUp({ updateUser }) {
-  const [signUp, setSignUp] = useState(true); // Set to true for sign-up only
-  const { user, setAlertMessage, handleSnackType } = useOutletContext();
-  const handleClick = () => setSignUp(true); // Always set to true for sign-up
-
-  const signupSchema = yup.object().shape({
-    username: yup.string().required("Please enter a witch name"),
-    email: yup
-      .string()
-      .email("Must be a valid email")
-      .required("Please enter an email"),
-    password: yup
-      .string()
-      .required("Please enter a witchy password")
-      .min(8, "Password is too short - should be 8 chars minimum.")
-      .matches(/[a-zA-Z0-9]/, "Password can only contain letters and numbers."),
-  });
-
-  const url = signUp ? "/signup" : "/edit";
 
   const formik = useFormik({
     initialValues: {
@@ -59,7 +38,7 @@ function SignUp({ updateUser }) {
     onSubmit: async (values) => {
       try {
         // Make a POST request to your Flask API endpoint
-        const response = await fetch("/witch", {
+        const response = await fetch("/witches", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -69,44 +48,20 @@ function SignUp({ updateUser }) {
 
         // Check if the response is successful (you may need to adjust this based on your actual API response)
         if (response.ok) {
-          setAlertMessage("Welcome to the Coven!");
           handleSnackType("success");
+          setAlertMessage("Signup successful!");
         } else {
           const data = await response.json();
-          setAlertMessage(data.error || "An error occurred during signup.");
           handleSnackType("error");
+          setAlertMessage(data.error || "An error occurred during signup.");
         }
       } catch (error) {
         // Handle network errors or other exceptions
-        setAlertMessage("An error occurred during signup.");
         handleSnackType("error");
+        setAlertMessage("An error occurred during signup.");
       }
-    validationSchema: signUp ? signupSchema : null,
-    onSubmit: (values) => {
-      fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      })
-        .then((res) => {
-          if (res.ok) {
-            res.json().then(updateUser);
-          } else {
-            res.json().then(errorObj => {
-              handleSnackType("error")
-              setAlertMessage(errorObj.message)
-          });
-          }
-        })
-        .catch(errorObj => {
-          handleSnackType("error")
-          setAlertMessage(errorObj.message)
-      });
     },
   });
-
   return (
     <div>
       <h2>Sign Up</h2>
@@ -125,6 +80,7 @@ function SignUp({ updateUser }) {
           {formik.touched.username && formik.errors.username && (
             <div className="error">{formik.errors.username}</div>
           )}
+          <Form />
         </div>
 
         {/* Email Field */}
@@ -169,3 +125,4 @@ function SignUp({ updateUser }) {
 };
 
 export default Signup;
+

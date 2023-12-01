@@ -1,8 +1,12 @@
 import React from 'react'
+import Form from "../components/Form";
 
 const Edit = () => {
   return (
-    <div>Edit</div>
+    <div>
+    <h2>Edit Profile</h2>
+    <Form edit />
+    </div>
   )
 }
 
