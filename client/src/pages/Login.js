@@ -32,7 +32,11 @@ const Login = () => {
           updateUser(userObj)
           return userObj
         })
-        .then(userObj => navigate(`/profile/${userObj.id}`))
+        .then(userObj => {
+          navigate(`/profile/${userObj.id}`)
+          handleSnackType("success")
+          setAlertMessage("Welcome back!")
+        })
       } else {
         resp.json().then(err => {
           handleSnackType("error")
@@ -48,32 +52,38 @@ const Login = () => {
 
   return (
     <div className="main">
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <label>Email or Username</label>
-        <input
-          type="text"
-          name="username"
-          value={credentials.username}
-          onChange={handleChange}
-          className="block"
-        />
-        <label>Password</label>
-        <input
-          type="password"
-          name="password"
-          value={credentials.password}
-          onChange={handleChange}
-          className="block"
-        />
-        <button type="submit">Login</button>
-      </form>
+      <div>
+        <h2>Login</h2>
+        <form onSubmit={handleSubmit}>
+          <label>Email or Username</label>
+          <input
+            type="text"
+            name="username"
+            value={credentials.username}
+            onChange={handleChange}
+            className="block"
+          />
+          <label>Password</label>
+          <input
+            type="password"
+            name="password"
+            value={credentials.password}
+            onChange={handleChange}
+            className="block"
+          />
+          <div className="buttons">
+            <button type="submit">Login</button>
+          </div>
+        </form>
+      </div>
 
       <div>
         <h2>New to CovenCraft?</h2>
         <p>No problem! Click below to sign up for a free account!</p>
         <Link to={"/signup"}>
-          <button>Sign up</button>
+          <div className="buttons">
+            <button>Sign up</button>
+          </div>
         </Link>
       </div>
     </div>

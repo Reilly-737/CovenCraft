@@ -100,7 +100,9 @@ const FormComp = () => {
           <ErrorMessage name="password" className="block" />
         </div>
 
-        <button type="submit">Submit</button>
+        <div className="buttons">
+          <button type="submit">Submit</button>
+        </div>
       </Form>
     </Formik>
   );
