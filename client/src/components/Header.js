@@ -22,7 +22,7 @@ const Header = ({ user, updateUser, setAlertMessage, handleSnackType }) => {
       </NavLink>
       <>
         {user ? (
-          <div>
+          <div className="container">
             <Link to={`/profile/${user.id}`}>
               <button>Profile</button>
             </Link>

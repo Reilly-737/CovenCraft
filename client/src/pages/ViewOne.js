@@ -17,7 +17,6 @@ const ViewOne = () => {
   }
 
   useEffect(() => {
-    console.log("effect")
     fetch(`/crafts/${id}`)
     .then(resp => resp.json())
     .then(craftObj => {

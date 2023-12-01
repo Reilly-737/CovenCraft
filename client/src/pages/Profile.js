@@ -4,7 +4,7 @@ import Card from "../components/Card";
 
 const Profile = () => {
   const { id } = useParams()
-  const { user, setAlertMessage, handleSnackType } = useOutletContext()
+  const { user, updateUser, setAlertMessage, handleSnackType } = useOutletContext()
   const [userInfo, setUserInfo] = useState({})
   const navigate = useNavigate();
   
@@ -39,6 +39,7 @@ const Profile = () => {
           handleSnackType("success");
           setAlertMessage("Witch's profile vanished into mist.🦇");
           navigate("/");
+          updateUser(null)
         } else {
           handleSnackType("error");
           setAlertMessage("Failed to delete profile.");
@@ -60,12 +61,13 @@ const Profile = () => {
             <h2>{userInfo.username}'s Profile</h2>
             <p>Username: {userInfo.username}</p>
             <p>Bio: {userInfo.bio}</p>
-          </div>
-          <div className="main">
-            <Link to="/profile/edit">
-              <button>Edit Profile</button>
-            </Link>
-            <button onClick={deleteProfile}>Delete Profile</button>
+            
+            <div className="buttons">
+              <Link to="/profile/edit">
+                <button>Edit Profile</button>
+              </Link>
+              <button onClick={deleteProfile}>Delete Profile</button>
+            </div>
           </div>
         </>
       )}
