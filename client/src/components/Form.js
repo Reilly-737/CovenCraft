@@ -23,11 +23,8 @@ const FormComp = ({ userInfo }) => {
           .min(8, 'Must be at least 8 characters')
           .required('Required'),
       })}
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-        }, 400);
+      onSubmit={values => {
+        handleSubmitForm(values)
       }}
     >
       <Form>
